@@ -1,20 +1,20 @@
 import { useState } from "react";
-import { Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
+import { Dialog } from "@headlessui/react";
 
 const navigation = [
+  { name: "Home", to: "/" },
   { name: "Product", to: "/products" },
-  { name: "Features", to: "#" },
-  { name: "Marketplace", to: "#" },
-  { name: "Company", to: "#" },
+  { name: "Categories", to: "#" },
+  { name: "Collection", to: "#" },
 ];
 
-const Landing = () => {
+const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="">
+    <>
       <header className="absolute inset-x-0 top-0 z-50">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
@@ -66,11 +66,10 @@ const Landing = () => {
           open={mobileMenuOpen}
           onClose={setMobileMenuOpen}
         >
-          <div className="fixed inset-0 z-50 bg-background" />
-          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
+          <div className="fixed inset-0 z-50 " />
+          <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white-A700 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
               <a href="#" className="-m-1.5 p-1.5">
-                <span className="sr-only">Your Company</span>
                 <img
                   className="h-8 w-auto"
                   src="https://cms.intuji.com/wp-content/uploads/2023/05/header-icon-1.svg"
@@ -112,37 +111,8 @@ const Landing = () => {
           </Dialog.Panel>
         </Dialog>
       </header>
-
-      <div className="relative isolate px-6 pt-14 lg:px-8">
-        <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-              Unparalleled Finds for Your Unique Taste
-            </h1>
-            <p className="mt-6 text-lg leading-8 text-gray-600">
-              Offers a curated collection of exclusive products, bringing you
-              unmatched and distinctive finds for a one-of-a-kind shopping
-              experience. Explore the extraordinary in every purchase.
-            </p>
-            <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
-                className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >
-                Get started
-              </a>
-              <a
-                href="#"
-                className="text-sm font-semibold leading-6 text-gray-900"
-              >
-                Learn more <span aria-hidden="true">→</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </>
   );
 };
 
-export default Landing;
+export { Header };

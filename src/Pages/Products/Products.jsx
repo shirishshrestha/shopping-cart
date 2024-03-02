@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-import { getProducts } from "./ProductsApiSlice";
+import { getProducts } from "../../Utils/apiSlice/ProductsApiSlice";
 
 const Products = () => {
   const { data: ProductsData, isLoading } = useQuery({
