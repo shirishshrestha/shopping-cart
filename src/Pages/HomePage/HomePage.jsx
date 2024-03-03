@@ -1,10 +1,23 @@
-import { useState } from "react";
-import { Dialog } from "@headlessui/react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { Button, Heading, Img, Text } from "../../components/Components";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+import { Autoplay } from "swiper/modules";
+import { ArrowSvg, StarSvg } from "../../assets/SVG/SvgImages";
+import { useQuery } from "@tanstack/react-query";
+import {
+  getFeaturedProducts,
+  getProducts,
+} from "../../Utils/apiSlice/ProductsApiSlice";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
+  const { data: FeaturedProduct } = useQuery({
+    queryKey: ["FeaturedProducts"],
+    queryFn: getFeaturedProducts,
+  });
   return (
     <>
       <Helmet>
@@ -12,36 +25,121 @@ const HomePage = () => {
         <link rel="icon" type="image/svg+xml" href="/images/helmet.svg" />
         <meta name="description" content="Shop the extraordinary" />
       </Helmet>
-      <div className="">
-        <div className="relative isolate px-6 pt-14 lg:px-8">
-          <div className="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">
-            <div className="text-center">
-              <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
-                Unparalleled Finds for Your Unique Taste
-              </h1>
-              <p className="mt-6 text-lg leading-8 text-gray-600">
-                Offers a curated collection of exclusive products, bringing you
-                unmatched and distinctive finds for a one-of-a-kind shopping
-                experience. Explore the extraordinary in every purchase.
-              </p>
-              <div className="mt-10 flex items-center justify-center gap-x-6">
-                <a
-                  href="#"
-                  className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      <section>
+        <div className="flex flex-row justify-center w-full pb-[5rem]">
+          <div className="flex flex-row justify-end w-full ">
+            <div className="flex flex-row justify-end items-start w-full mx-auto max-w-[1776px]">
+              <div className="flex flex-col items-start justify-start w-[40%] mt-[102px] z-[1]">
+                <Text
+                  size="xl"
+                  as="p"
+                  className="!text-gray-800 !font-playfairdisplay"
                 >
-                  Get started
-                </a>
-                <a
-                  href="#"
-                  className="text-sm font-semibold leading-6 text-gray-900"
+                  Empower your style
+                </Text>
+
+                <Text
+                  as="p"
+                  className="w-[93%] mt-[34px] !text-gray-800 leading-8"
                 >
-                  Learn more <span aria-hidden="true">→</span>
-                </a>
+                  Let your purchases shape a world of endless possibilities in
+                  the realm of online treasures.
+                </Text>
+                <Button
+                  size="3xl"
+                  rightIcon={<ArrowSvg />}
+                  className="mt-14 gap-2.5 font-medium min-w-[245px]"
+                >
+                  Shop Now
+                </Button>
+              </div>
+              <div className="flex flex-row justify-end w-[55%] pt-[3rem]">
+                <Swiper
+                  spaceBetween={30}
+                  centeredSlides={true}
+                  autoplay={{
+                    delay: 5000,
+                    disableOnInteraction: false,
+                  }}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  modules={[Autoplay]}
+                  className="w-fit "
+                >
+                  {FeaturedProduct?.map((product, index) => (
+                    <SwiperSlide key={index}>
+                      <div className="flex justify-center items-center">
+                        <Img
+                          src={product.thumbnail}
+                          alt={product.title}
+                          className=" h-[30rem] object-cover"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
               </div>
             </div>
           </div>
         </div>
-      </div>
+        <div className="flex flex-col items-center justify-start w-full pt-[2rem] pb-[5rem] gap-8 ">
+          <div className="flex flex-row justify-between items-center w-full">
+            <Heading size="s" as="h2">
+              Featured
+            </Heading>
+            <div className="flex flex-row justify-center">
+              <Link to="/products">
+                <Text as="p" className="!text-gray-800 !font-medium">
+                  View all
+                </Text>
+              </Link>
+            </div>
+          </div>
+          <div className="grid grid-cols-4 gap-y-[3rem]">
+            {FeaturedProduct?.map((product, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center justify-start gap-3.5"
+              >
+                <Img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className=" h-[18rem] object-contain"
+                />
+                <div className="flex flex-col items-center justify-start  gap-[9px]">
+                  <Text
+                    size="md"
+                    as="p"
+                    className="!text-gray-800 text-[1.3rem] capitalize   overflow-hidden truncate"
+                  >
+                    {product.title.length > 20
+                      ? `${product.title.substring(0, 20)}...`
+                      : product.title}
+                  </Text>
+                  <Text size="xs" as="p" className="!text-gray-800 capitalize">
+                    {product.brand}
+                  </Text>
+                  <div className="grid grid-cols-2  gap-[2rem]">
+                    <Text as="p" className="!font-medium">
+                      {`$${product.price}`}
+                    </Text>
+                    <div className="flex gap-[0.5rem]">
+                      <StarSvg />
+                      <Text as="p" className="!font-medium">
+                        {product.rating}
+                      </Text>
+                    </div>
+                  </div>
+                </div>
+                <Button size="5xl" className="font-bold min-w-[200px]">
+                  Add to Cart
+                </Button>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 };
