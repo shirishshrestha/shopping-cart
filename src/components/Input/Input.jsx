@@ -1,10 +1,13 @@
+import { ErrorMessage } from "@hookform/error-message";
+import { Text } from "../Components";
+
 const shapes = {
   square: "rounded-[0px]",
 };
 const variants = {
   fill: {
     white_A700: "bg-white-A700",
-    gray_800: "bg-gray-800 text-blue_gray-100_87",
+    gray_800: "text-gray-800 ",
   },
   outline: {
     blue_gray_100: "border-blue_gray-100 border border-solid text-gray-500_87",
@@ -16,29 +19,23 @@ const sizes = {
   sm: "h-[60px] pl-6 pr-4 text-lg",
 };
 
-const Input = (
-  {
-    className = "",
-    name = "",
-    placeholder = "",
-    type = "text",
-    children,
-    label = "",
-    prefix,
-    suffix,
-    onChange,
-    shape = "square",
-    variant = "outline",
-    size = "sm",
-    color = "blue_gray_100",
-    ...restProps
-  },
-  ref
-) => {
-  const handleChange = (e) => {
-    if (onChange) onChange(e?.target?.value);
-  };
-
+const Input = ({
+  className = "",
+  name = "",
+  placeholder = "",
+  type = "text",
+  children,
+  label = "",
+  onChange,
+  shape = "square",
+  variant = "outline",
+  size = "sm",
+  color = "gray_800",
+  required,
+  register,
+  errors,
+  ...restProps
+}) => {
   return (
     <>
       <div
@@ -48,16 +45,25 @@ const Input = (
           sizes[size] || ""
         }`}
       >
-        {!!label && label}
-        {!!prefix && prefix}
+        {!!label && <label className="text-gray-700">{label} &nbsp; </label>}
         <input
           type={type}
           name={name}
-          onChange={handleChange}
+          {...register(name, { required: required })}
           placeholder={placeholder}
           {...restProps}
         />
-        {!!suffix && suffix}
+        <ErrorMessage
+          errors={errors}
+          name={name}
+          render={({ message }) =>
+            message && (
+              <Text as={p} className="text-red-500 " key={type}>
+                {message}
+              </Text>
+            )
+          }
+        />
       </div>
     </>
   );

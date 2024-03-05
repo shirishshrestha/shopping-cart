@@ -1,5 +1,4 @@
 import { Footer, Header } from "./components/Components";
-import "./styles/App.css";
 import { Outlet } from "react-router-dom";
 
 const App = () => {

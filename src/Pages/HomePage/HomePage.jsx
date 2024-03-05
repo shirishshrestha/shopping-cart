@@ -33,7 +33,7 @@ const HomePage = () => {
                 <Text
                   size="xl"
                   as="p"
-                  className="!text-gray-800 !font-playfairdisplay"
+                  className="!text-gray-800 !font-[playfairdisplay]"
                 >
                   Empower your style
                 </Text>

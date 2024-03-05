@@ -15,6 +15,13 @@ export default {
         yellow: { 400: "#fae952" },
       },
       fontFamily: { poppins: "Poppins", playfairdisplay: "Playfair Display" },
+      fontWeight: {
+        thin: 300,
+        normal: 400,
+        semibold: 600,
+        bold: 700,
+        extrabold: 900,
+      },
     },
   },
   plugins: [],

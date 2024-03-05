@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./styles/tailwind.css";
-import "./styles/fonts.css";
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Route/Router";
 import { QueryClientProvider } from "@tanstack/react-query";

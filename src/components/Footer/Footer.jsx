@@ -3,8 +3,13 @@ import { Heading, Img, Input, Text } from "../Components";
 import { FiInstagram } from "react-icons/fi";
 import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebook } from "react-icons/fa6";
+import { useForm } from "react-hook-form";
 
 const Footer = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
   const year = new Date().getFullYear();
   return (
     <footer className=" flex justify-center items-center w-full p-[30px] bg-gray-800">
@@ -23,6 +28,8 @@ const Footer = () => {
               variant="fill"
               type="email"
               name="email"
+              register={register}
+              errors={errors}
               placeholder="Enter your email"
               suffix={<ArrowSvg />}
               className="w-[91%] gap-[35px] text-gray-500_87 tracking-[0.36px]"

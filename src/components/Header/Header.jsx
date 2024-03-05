@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 import { Button } from "../Components";
+import { getTokenFromLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
 
 const navigation = [
   { name: "Home", to: "/" },
@@ -11,8 +12,11 @@ const navigation = [
   { name: "Collection", to: "#" },
 ];
 
+const token = getTokenFromLocalStorage();
+
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -52,7 +56,7 @@ const Header = () => {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to="#" className="">
+            <Link to="/login" className="">
               <Button size="md" className="font-bold min-w-[107px]">
                 Log in
               </Button>
@@ -98,11 +102,13 @@ const Header = () => {
                   ))}
                 </div>
                 <div className="py-6">
-                  <Link to="#" className="">
-                    <Button size="md" className="font-bold min-w-[107px]">
-                      Log in
-                    </Button>
-                  </Link>
+                  <Button
+                    size="md"
+                    className="font-bold min-w-[107px]"
+                    onClick={() => navigate("/login")}
+                  >
+                    Log in
+                  </Button>
                 </div>
               </div>
             </div>

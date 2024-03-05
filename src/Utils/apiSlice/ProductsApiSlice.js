@@ -11,3 +11,17 @@ export const getFeaturedProducts = async () => {
   const featuredProductsResponse = featuredProducts.data.products;
   return featuredProductsResponse;
 };
+
+export const loginUser = async (username, password) => {
+  const userReq = await instance.post(
+    "/auth/login",
+    {
+      username: username,
+      password: password,
+    },
+    {
+      headers: { "Content-Type": "application/json" },
+    }
+  );
+  return userReq.data;
+};
