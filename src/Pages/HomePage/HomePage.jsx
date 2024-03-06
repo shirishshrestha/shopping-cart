@@ -7,17 +7,34 @@ import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
 import { ArrowSvg, StarSvg } from "../../assets/SVG/SvgImages";
 import { useQuery } from "@tanstack/react-query";
-import {
-  getFeaturedProducts,
-  getProducts,
-} from "../../Utils/apiSlice/ProductsApiSlice";
+import { getFeaturedProducts } from "../../Utils/apiSlice/ProductsApiSlice";
 import { Link } from "react-router-dom";
+import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
+import LoginPopup from "../Login/LoginPopup";
+import { useState } from "react";
 
 const HomePage = () => {
   const { data: FeaturedProduct } = useQuery({
     queryKey: ["FeaturedProducts"],
     queryFn: getFeaturedProducts,
   });
+
+  const [loginPopup, setLoginPopup] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useShoppingContext();
+
+  const addToCart = () => {
+    if (isLoggedIn) {
+      console.log("added to cart");
+    } else {
+      setLoginPopup(true);
+      // document.body.style.overflow = "hidden";
+    }
+  };
+
+  const handleLoginPopupClose = () => {
+    setLoginPopup(false);
+    document.body.style.overflow = "auto";
+  };
   return (
     <>
       <Helmet>
@@ -25,17 +42,31 @@ const HomePage = () => {
         <link rel="icon" type="image/svg+xml" href="/images/helmet.svg" />
         <meta name="description" content="Shop the extraordinary" />
       </Helmet>
+      {loginPopup && (
+        <div className=" fixed flex items-center justify-center w-full bg-gray-800/35 inset-0">
+          <div
+            className=" h-full w-full fixed z-40"
+            onClick={handleLoginPopupClose}
+          ></div>
+          <div className="z-50 bg-white-A700 p-10">
+            <LoginPopup
+              setLoginPopup={setLoginPopup}
+              handleLoginPopupClose={handleLoginPopupClose}
+            />
+          </div>
+        </div>
+      )}
       <section>
         <div className="flex flex-row justify-center w-full pb-[5rem]">
           <div className="flex flex-row justify-end w-full ">
             <div className="flex flex-row justify-end items-start w-full mx-auto max-w-[1776px]">
-              <div className="flex flex-col items-start justify-start w-[40%] mt-[102px] z-[1]">
+              <div className="flex flex-col items-start justify-start w-[40%] mt-[102px] ">
                 <Text
                   size="xl"
                   as="p"
                   className="!text-gray-800 !font-[playfairdisplay]"
                 >
-                  Empower your style
+                  Shop Smarter, Not Harder
                 </Text>
 
                 <Text
@@ -53,7 +84,7 @@ const HomePage = () => {
                   Shop Now
                 </Button>
               </div>
-              <div className="flex flex-row justify-end w-[55%] pt-[3rem]">
+              <div className="flex flex-row justify-end w-[55%] pt-[3rem] ">
                 <Swiper
                   spaceBetween={30}
                   centeredSlides={true}
@@ -61,21 +92,18 @@ const HomePage = () => {
                     delay: 5000,
                     disableOnInteraction: false,
                   }}
-                  pagination={{
-                    clickable: true,
-                  }}
                   modules={[Autoplay]}
-                  className="w-fit "
+                  className="w-fit  "
                 >
                   {FeaturedProduct?.map((product, index) => (
                     <SwiperSlide key={index}>
-                      <div className="flex justify-center items-center">
+                      <figure className=" flex justify-center items-center">
                         <Img
                           src={product.thumbnail}
                           alt={product.title}
                           className=" h-[30rem] object-cover"
                         />
-                      </div>
+                      </figure>
                     </SwiperSlide>
                   ))}
                 </Swiper>
@@ -132,7 +160,11 @@ const HomePage = () => {
                     </div>
                   </div>
                 </div>
-                <Button size="5xl" className="font-bold min-w-[200px]">
+                <Button
+                  size="5xl"
+                  className="font-bold min-w-[200px]"
+                  onClick={addToCart}
+                >
                   Add to Cart
                 </Button>
               </div>

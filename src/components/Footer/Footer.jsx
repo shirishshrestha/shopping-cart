@@ -84,7 +84,7 @@ const Footer = () => {
               Get In Touch
             </Heading>
             <div className="flex  text-[2rem] gap-[1rem]">
-              <FiInstagram className="fill-white-A700" />
+              <FiInstagram className="fill-white-A700 stroke-gray-800" />
               <FaXTwitter className="fill-white-A700" />
               <FaFacebook className="fill-white-A700" />
             </div>

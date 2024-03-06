@@ -39,26 +39,29 @@ const Input = ({
   return (
     <>
       <div
-        className={`${className} flex items-center justify-center ${
+        className={`${className} flex flex-col  justify-center ${
           shapes[shape] || ""
         } ${variants[variant]?.[color] || variants[variant] || ""} ${
           sizes[size] || ""
         }`}
       >
-        {!!label && <label className="text-gray-700">{label} &nbsp; </label>}
-        <input
-          type={type}
-          name={name}
-          {...register(name, { required: required })}
-          placeholder={placeholder}
-          {...restProps}
-        />
+        <div>
+          {!!label && <label className="text-gray-700">{label} &nbsp; </label>}
+
+          <input
+            type={type}
+            name={name}
+            {...register(name, { required: required })}
+            placeholder={placeholder}
+            {...restProps}
+          />
+        </div>
         <ErrorMessage
           errors={errors}
           name={name}
           render={({ message }) =>
             message && (
-              <Text as={p} className="text-red-500 " key={type}>
+              <Text className="text-red-500  !text-[14px] " key={type}>
                 {message}
               </Text>
             )

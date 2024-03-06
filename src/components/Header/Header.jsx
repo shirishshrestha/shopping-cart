@@ -3,7 +3,13 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Link, useNavigate } from "react-router-dom";
 import { Dialog } from "@headlessui/react";
 import { Button } from "../Components";
-import { getTokenFromLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
+import {
+  clearTokenFromLocalStorage,
+  getTokenFromLocalStorage,
+} from "../../Utils/StorageUtils/StorageUtils";
+import { LogoutSvg } from "../../assets/SVG/SvgImages";
+import useLogout from "../../Utils/CustomHook/useLogout";
+import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 
 const navigation = [
   { name: "Home", to: "/" },
@@ -12,26 +18,36 @@ const navigation = [
   { name: "Collection", to: "#" },
 ];
 
-const token = getTokenFromLocalStorage();
-
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const { logout } = useLogout();
+
+  const { isLoggedIn, setIsLoggedIn } = useShoppingContext();
+
+  const handleLogout = () => {
+    clearTokenFromLocalStorage();
+    logout();
+    setIsLoggedIn(false);
+    navigate("/");
+  };
 
   return (
     <>
-      <header className="relative inset-x-0 top-0 z-50">
+      <header className="relative inset-x-0 top-0 ">
         <nav
           className="flex items-center justify-between p-6 lg:px-8"
           aria-label="Global"
         >
           <div className="flex lg:flex-1">
-            <Link to="/" className="-m-1.5 p-1.5">
-              <img
-                className="h-8 w-auto"
-                src="https://cms.intuji.com/wp-content/uploads/2023/05/header-icon-1.svg"
-                alt=""
-              />
+            <Link
+              to="/"
+              className="-m-1.5 p-1.5 flex gap-[1rem] items-center justify-center "
+            >
+              <img className="h-8 w-auto" src="/images/helmet.svg" alt="" />
+              <span className="text-gray-800 font-bold text-2xl font-poppins">
+                IntuCart
+              </span>
             </Link>
           </div>
           <div className="flex lg:hidden">
@@ -56,11 +72,23 @@ const Header = () => {
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <Link to="/login" className="">
-              <Button size="md" className="font-bold min-w-[107px]">
+            {isLoggedIn ? (
+              <Button
+                size="md"
+                className="font-bold min-w-[107px]"
+                onClick={handleLogout}
+              >
+                <LogoutSvg /> &ensp; Log out
+              </Button>
+            ) : (
+              <Button
+                size="md"
+                className="font-bold min-w-[107px]"
+                onClick={() => navigate("/login")}
+              >
                 Log in
               </Button>
-            </Link>
+            )}
           </div>
         </nav>
         <Dialog
@@ -72,13 +100,17 @@ const Header = () => {
           <div className="fixed inset-0 z-50 " />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white-A700 px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
-                <img
-                  className="h-8 w-auto"
-                  src="https://cms.intuji.com/wp-content/uploads/2023/05/header-icon-1.svg"
-                  alt=""
-                />
-              </a>
+              <Link
+                to="/"
+                className="-m-1.5 p-1.5 flex gap-[1rem] items-center justify-center "
+              >
+                <figure className=" object-contain w-auto">
+                  <img className="h-5" src="/images/helmet.svg" alt="" />
+                </figure>
+                <span className="text-gray-800 font-bold text-1xl font-poppins">
+                  IntuCart
+                </span>
+              </Link>
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -102,13 +134,23 @@ const Header = () => {
                   ))}
                 </div>
                 <div className="py-6">
-                  <Button
-                    size="md"
-                    className="font-bold min-w-[107px]"
-                    onClick={() => navigate("/login")}
-                  >
-                    Log in
-                  </Button>
+                  {isLoggedIn ? (
+                    <Button
+                      size="md"
+                      className="font-bold min-w-[107px]"
+                      onClick={handleLogout}
+                    >
+                      <LogoutSvg /> &ensp; Log out
+                    </Button>
+                  ) : (
+                    <Button
+                      size="md"
+                      className="font-bold min-w-[107px]"
+                      onClick={() => navigate("/login")}
+                    >
+                      Log in
+                    </Button>
+                  )}
                 </div>
               </div>
             </div>

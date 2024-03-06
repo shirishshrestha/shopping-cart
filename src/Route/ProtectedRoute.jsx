@@ -1,9 +1,10 @@
 import { Navigate } from "react-router-dom";
 import { getTokenFromLocalStorage } from "../Utils/StorageUtils/StorageUtils";
+import { useShoppingContext } from "../Utils/Context/ShoppingContext";
 
-const token = getTokenFromLocalStorage();
 const ProtectedRoute = ({ children }) => {
-  return token ? children : <Navigate to="/login" />;
+  const { isLoggedIn } = useShoppingContext();
+  return isLoggedIn ? children : <Navigate to="/login" />;
 };
 
 export default ProtectedRoute;

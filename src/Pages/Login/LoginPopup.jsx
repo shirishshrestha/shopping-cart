@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm } from "react-hook-form";
 import { Button, Input, Text } from "../../components/Components";
 import { useMutation } from "@tanstack/react-query";
@@ -6,8 +5,9 @@ import { loginUser } from "../../Utils/apiSlice/ProductsApiSlice";
 import { setTokenToLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
 import { useNavigate } from "react-router";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
+import { CrossSvg } from "../../assets/SVG/SvgImages";
 
-const Login = () => {
+const LoginPopup = ({ setLoginPopup, handleLoginPopupClose }) => {
   const {
     register,
     handleSubmit,
@@ -24,6 +24,8 @@ const Login = () => {
     onSuccess: (data) => {
       setTokenToLocalStorage(data.token);
       setIsLoggedIn(true);
+      setLoginPopup(false);
+      document.body.style.overflow = "auto";
       navigate("/");
     },
   });
@@ -32,15 +34,16 @@ const Login = () => {
     LoginMutation.mutate(loginData);
   };
 
-  const navigateHome = () => {
-    navigate("/");
-  };
-
   return (
-    <section className="login flex flex-col justify-center items-center w-full h-[100vh]">
-      <Text className="pb-12 text-gray-800 font-semibold " size="lg" as={"h2"}>
-        Login
-      </Text>
+    <section className="login w-full ">
+      <div className="flex justify-between w-full">
+        <Text className="pb-4 text-gray-800 font-semibold " size="lg" as={"h2"}>
+          Login
+        </Text>
+        <span className="cursor-pointer" onClick={handleLoginPopupClose}>
+          <CrossSvg />
+        </span>
+      </div>
       <form
         className="flex flex-col "
         onSubmit={handleSubmit(handleLoginSubmit)}
@@ -67,19 +70,8 @@ const Login = () => {
         />
         <Button className="mt-[2rem]">Login</Button>
       </form>
-      <div className="pt-[3rem] ">
-        <Text className="text-gray-800">
-          Go To &ensp;
-          <span
-            className="text-white-A700 px-9 py-[0.4rem] bg-gray-800 cursor-pointer text-[1rem] "
-            onClick={navigateHome}
-          >
-            Home
-          </span>
-        </Text>
-      </div>
     </section>
   );
 };
 
-export default Login;
+export default LoginPopup;
