@@ -32,7 +32,7 @@ const Footer = () => {
               errors={errors}
               placeholder="Enter your email"
               suffix={<ArrowSvg />}
-              className="w-[91%] gap-[35px] text-gray-500_87 tracking-[0.36px]"
+              className="w-[91%] gap-[35px] text-gray-800 tracking-[0.36px]"
             />
           </div>
           <div className="flex flex-col items-start justify-start gap-[25px]">
@@ -41,10 +41,10 @@ const Footer = () => {
             </Heading>
             <div className="flex flex-col items-start justify-center gap-[15px]">
               <Text as="p" className="mt-px !text-white-A700">
-                Categories
+                Products
               </Text>
               <Text as="p" className="!text-white-A700">
-                New Arrival
+                Categories
               </Text>
               <Text as="p" className="!text-white-A700">
                 Features

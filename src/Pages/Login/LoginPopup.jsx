@@ -6,8 +6,14 @@ import { setTokenToLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
 import { useNavigate } from "react-router";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { CrossSvg } from "../../assets/SVG/SvgImages";
+import { notifySuccess } from "../../components/Toast/Toast";
 
-const LoginPopup = ({ setLoginPopup, handleLoginPopupClose }) => {
+const LoginPopup = ({
+  setLoginPopup,
+  handleLoginPopupClose,
+  addToCart,
+  cartItem,
+}) => {
   const {
     register,
     handleSubmit,
@@ -27,6 +33,8 @@ const LoginPopup = ({ setLoginPopup, handleLoginPopupClose }) => {
       setLoginPopup(false);
       document.body.style.overflow = "auto";
       navigate("/");
+      notifySuccess("Logged in successfully");
+      addToCart(cartItem, true);
     },
   });
 

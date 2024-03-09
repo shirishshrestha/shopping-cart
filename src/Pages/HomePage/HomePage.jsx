@@ -6,12 +6,14 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
 import { ArrowSvg, StarSvg } from "../../assets/SVG/SvgImages";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { getFeaturedProducts } from "../../Utils/apiSlice/ProductsApiSlice";
 import { Link } from "react-router-dom";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import LoginPopup from "../Login/LoginPopup";
 import { useState } from "react";
+import { addItemToCart } from "../../Utils/apiSlice/CartApiSlice";
+import { notifySuccess } from "../../components/Toast/Toast";
 
 const HomePage = () => {
   const { data: FeaturedProduct } = useQuery({
@@ -19,15 +21,27 @@ const HomePage = () => {
     queryFn: getFeaturedProducts,
   });
 
+  const AddToCart = useMutation({
+    mutationFn: (product) => addItemToCart(product),
+    onSuccess: () => {
+      notifySuccess("Item added to cart");
+    },
+  });
+
   const [loginPopup, setLoginPopup] = useState(false);
+  const [cartItem, setCartItem] = useState();
   const { isLoggedIn, setIsLoggedIn } = useShoppingContext();
 
-  const addToCart = () => {
+  const addToCart = (product, signal) => {
+    setCartItem(product);
     if (isLoggedIn) {
-      console.log("added to cart");
+      AddToCart.mutate(product);
+    } else if (signal) {
+      AddToCart.mutate(product);
+      setLoginPopup(!signal);
     } else {
       setLoginPopup(true);
-      // document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden";
     }
   };
 
@@ -51,7 +65,9 @@ const HomePage = () => {
           <div className="z-50 bg-white-A700 p-10">
             <LoginPopup
               setLoginPopup={setLoginPopup}
+              cartItem={cartItem}
               handleLoginPopupClose={handleLoginPopupClose}
+              addToCart={addToCart}
             />
           </div>
         </div>
@@ -76,13 +92,15 @@ const HomePage = () => {
                   Let your purchases shape a world of endless possibilities in
                   the realm of online treasures.
                 </Text>
-                <Button
-                  size="3xl"
-                  rightIcon={<ArrowSvg />}
-                  className="mt-14 gap-2.5 font-medium min-w-[245px]"
-                >
-                  Shop Now
-                </Button>
+                <Link to="products">
+                  <Button
+                    size="3xl"
+                    rightIcon={<ArrowSvg />}
+                    className="mt-14 gap-2.5 font-medium min-w-[245px]"
+                  >
+                    Shop Now
+                  </Button>
+                </Link>
               </div>
               <div className="flex flex-row justify-end w-[55%] pt-[3rem] ">
                 <Swiper
@@ -163,7 +181,7 @@ const HomePage = () => {
                 <Button
                   size="5xl"
                   className="font-bold min-w-[200px]"
-                  onClick={addToCart}
+                  onClick={() => addToCart(product)}
                 >
                   Add to Cart
                 </Button>

@@ -6,6 +6,8 @@ import { loginUser } from "../../Utils/apiSlice/ProductsApiSlice";
 import { setTokenToLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
 import { useNavigate } from "react-router";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
+import { notifyError, notifySuccess } from "../../components/Toast/Toast";
+import CustomToastContainer from "../../components/Toast/ToastContainer";
 
 const Login = () => {
   const {
@@ -24,7 +26,13 @@ const Login = () => {
     onSuccess: (data) => {
       setTokenToLocalStorage(data.token);
       setIsLoggedIn(true);
-      navigate("/");
+      notifySuccess("Logged in successfully");
+      setTimeout(() => {
+        navigate("/");
+      }, 1000);
+    },
+    onError: () => {
+      notifyError("Username or password incorrect");
     },
   });
 
@@ -78,6 +86,7 @@ const Login = () => {
           </span>
         </Text>
       </div>
+      <CustomToastContainer />
     </section>
   );
 };

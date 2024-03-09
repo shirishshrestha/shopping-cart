@@ -34,6 +34,7 @@ const Input = ({
   required,
   register,
   errors,
+  suffix,
   ...restProps
 }) => {
   return (
@@ -47,7 +48,6 @@ const Input = ({
       >
         <div>
           {!!label && <label className="text-gray-700">{label} &nbsp; </label>}
-
           <input
             type={type}
             name={name}
@@ -56,6 +56,7 @@ const Input = ({
             {...restProps}
           />
         </div>
+
         <ErrorMessage
           errors={errors}
           name={name}

@@ -7,9 +7,10 @@ import {
   clearTokenFromLocalStorage,
   getTokenFromLocalStorage,
 } from "../../Utils/StorageUtils/StorageUtils";
-import { LogoutSvg } from "../../assets/SVG/SvgImages";
+import { CartSvg, LogoutSvg } from "../../assets/SVG/SvgImages";
 import useLogout from "../../Utils/CustomHook/useLogout";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
+import { notifySuccess } from "../Toast/Toast";
 
 const navigation = [
   { name: "Home", to: "/" },
@@ -26,11 +27,14 @@ const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useShoppingContext();
 
   const handleLogout = () => {
+    notifySuccess("Logged out successfully");
     clearTokenFromLocalStorage();
     logout();
     setIsLoggedIn(false);
     navigate("/");
   };
+
+  const handleCart = () => {};
 
   return (
     <>
@@ -71,7 +75,7 @@ const Header = () => {
               </Link>
             ))}
           </div>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+          <div className="hidden  lg:flex lg:flex-1 lg:justify-end">
             {isLoggedIn ? (
               <Button
                 size="md"
@@ -83,7 +87,7 @@ const Header = () => {
             ) : (
               <Button
                 size="md"
-                className="font-bold min-w-[107px]"
+                className="font-bold  min-w-[107px]"
                 onClick={() => navigate("/login")}
               >
                 Log in
@@ -91,6 +95,17 @@ const Header = () => {
             )}
           </div>
         </nav>
+        <div className="w-fit mr-[4rem] absolute right-[9rem] top-[1.5rem]">
+          <Link to="/cart">
+            <Button
+              onClick={handleCart}
+              size="md"
+              className="!p-0 bg-transparent !text-gray-800"
+            >
+              <CartSvg />
+            </Button>
+          </Link>
+        </div>
         <Dialog
           as="div"
           className="lg:hidden "
