@@ -1,7 +1,21 @@
 {
   "products": [
     {
-      "id": "82ac",
+      "id": "760a",
+      "productData": {
+        "id": 2,
+        "title": "iPhone X",
+        "description": "SIM-Free, Model A19211 6.5-inch Super Retina HD display with OLED technology A12 Bionic chip with ...",
+        "price": 899,
+        "rating": 4.44,
+        "stock": 34,
+        "brand": "Apple",
+        "category": "smartphones",
+        "thumbnail": "https://cdn.dummyjson.com/product-images/2/thumbnail.jpg"
+      }
+    },
+    {
+      "id": "005d",
       "productData": {
         "id": 11,
         "title": "perfume Oil",

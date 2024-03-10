@@ -5,6 +5,8 @@ import HomePage from "../Pages/HomePage/HomePage";
 import Login from "../Pages/Login/Login";
 import ProtectedRoute from "./ProtectedRoute";
 import Cart from "../Pages/Cart/Cart";
+import EsewaSuccess from "../Pages/Esewa/EsewaSuccess";
+import EsewaFailed from "../Pages/Esewa/EsewaFailed";
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +30,14 @@ export const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "/esewasuccess",
+    element: <EsewaSuccess />,
+  },
+  {
+    path: "/esewafail",
+    element: <EsewaFailed />,
   },
   {
     path: "/login",

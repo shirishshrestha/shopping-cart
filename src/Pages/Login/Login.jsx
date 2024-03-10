@@ -32,7 +32,7 @@ const Login = () => {
       }, 1000);
     },
     onError: () => {
-      notifyError("Username or password incorrect");
+      notifyError("Incorrect Username/Password");
     },
   });
 

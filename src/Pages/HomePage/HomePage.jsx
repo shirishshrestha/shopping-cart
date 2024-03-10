@@ -26,11 +26,14 @@ const HomePage = () => {
     onSuccess: () => {
       notifySuccess("Item added to cart");
     },
+    onError: () => {
+      notifyError("Error adding item to cart");
+    },
   });
 
   const [loginPopup, setLoginPopup] = useState(false);
   const [cartItem, setCartItem] = useState();
-  const { isLoggedIn, setIsLoggedIn } = useShoppingContext();
+  const { isLoggedIn } = useShoppingContext();
 
   const addToCart = (product, signal) => {
     setCartItem(product);

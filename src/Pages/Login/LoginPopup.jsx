@@ -6,7 +6,7 @@ import { setTokenToLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
 import { useNavigate } from "react-router";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { CrossSvg } from "../../assets/SVG/SvgImages";
-import { notifySuccess } from "../../components/Toast/Toast";
+import { notifyError, notifySuccess } from "../../components/Toast/Toast";
 
 const LoginPopup = ({
   setLoginPopup,
@@ -35,6 +35,9 @@ const LoginPopup = ({
       navigate("/");
       notifySuccess("Logged in successfully");
       addToCart(cartItem, true);
+    },
+    onError: () => {
+      notifyError("Incorrect Username/Password");
     },
   });
 

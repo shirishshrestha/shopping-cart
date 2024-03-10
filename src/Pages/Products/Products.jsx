@@ -1,13 +1,51 @@
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import React, { useState } from "react";
 import { getProducts } from "../../Utils/apiSlice/ProductsApiSlice";
 import { Helmet } from "react-helmet";
+import { Button, Heading, Img, Text } from "../../components/Components";
+import { StarSvg } from "../../assets/SVG/SvgImages";
+import { addItemToCart } from "../../Utils/apiSlice/CartApiSlice";
+import LoginPopup from "../Login/LoginPopup";
+import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
+import { notifyError, notifySuccess } from "../../components/Toast/Toast";
 
 const Products = () => {
+  const [loginPopup, setLoginPopup] = useState(false);
+  const [cartItem, setCartItem] = useState();
+  const { isLoggedIn } = useShoppingContext();
+
   const { data: ProductsData, isLoading } = useQuery({
     queryKey: ["products"],
     queryFn: getProducts,
   });
+
+  const AddToCart = useMutation({
+    mutationFn: (product) => addItemToCart(product),
+    onSuccess: () => {
+      notifySuccess("Item added to cart");
+    },
+    onError: () => {
+      notifyError("Error adding item to cart");
+    },
+  });
+
+  const addToCart = (product, signal) => {
+    setCartItem(product);
+    if (isLoggedIn) {
+      AddToCart.mutate(product);
+    } else if (signal) {
+      AddToCart.mutate(product);
+      setLoginPopup(!signal);
+    } else {
+      setLoginPopup(true);
+      document.body.style.overflow = "hidden";
+    }
+  };
+
+  const handleLoginPopupClose = () => {
+    setLoginPopup(false);
+    document.body.style.overflow = "auto";
+  };
   return (
     <>
       <Helmet>
@@ -15,35 +53,72 @@ const Products = () => {
         <link rel="icon" type="image/svg+xml" href="/images/helmet.svg" />
         <meta name="description" content="Shop the extraordinary" />
       </Helmet>
+      {loginPopup && (
+        <div className=" fixed flex items-center justify-center w-full bg-gray-800/35 inset-0">
+          <div
+            className=" h-full w-full fixed z-40"
+            onClick={handleLoginPopupClose}
+          ></div>
+          <div className="z-50 bg-white-A700 p-10">
+            <LoginPopup
+              setLoginPopup={setLoginPopup}
+              cartItem={cartItem}
+              handleLoginPopupClose={handleLoginPopupClose}
+              addToCart={addToCart}
+            />
+          </div>
+        </div>
+      )}
       <section className="products">
-        <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-          <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-            Customers also purchased
-          </h2>
-          <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            {ProductsData?.map((product) => (
-              <div key={product.id} className="group relative">
-                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                  <img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                  />
-                </div>
-                <div className="mt-4 flex justify-between">
-                  <div>
-                    <h3 className="text-sm text-gray-700">
-                      <span aria-hidden="true" className="absolute inset-0" />
-                      {product.brand}
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-500">
-                      {product.stock}
-                    </p>
+        <div className="flex flex-col items-center justify-start w-full pt-[2rem] pb-[5rem] gap-8 ">
+          <div className="flex flex-row justify-between items-center w-full">
+            <Heading size="s" as="h2">
+              Products
+            </Heading>
+          </div>
+          <div className="grid grid-cols-4 gap-[3rem]">
+            {ProductsData?.map((product, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center justify-start gap-3.5"
+              >
+                <Img
+                  src={product.thumbnail}
+                  alt={product.title}
+                  className=" h-[18rem] object-cover"
+                />
+                <div className="flex flex-col items-center justify-start  gap-[9px]">
+                  <Text
+                    size="md"
+                    as="p"
+                    className="!text-gray-800 text-[1.3rem] capitalize   overflow-hidden truncate"
+                  >
+                    {product.title.length > 20
+                      ? `${product.title.substring(0, 20)}...`
+                      : product.title}
+                  </Text>
+                  <Text size="xs" as="p" className="!text-gray-800 capitalize">
+                    {product.brand}
+                  </Text>
+                  <div className="grid grid-cols-2  gap-[2rem]">
+                    <Text as="p" className="!font-medium">
+                      {`$${product.price}`}
+                    </Text>
+                    <div className="flex gap-[0.5rem]">
+                      <StarSvg />
+                      <Text as="p" className="!font-medium">
+                        {product.rating}
+                      </Text>
+                    </div>
                   </div>
-                  <p className="text-sm font-medium text-gray-900">
-                    {product.price}
-                  </p>
                 </div>
+                <Button
+                  size="5xl"
+                  className="font-bold min-w-[200px]"
+                  onClick={() => addToCart(product)}
+                >
+                  Add to Cart
+                </Button>
               </div>
             ))}
           </div>
