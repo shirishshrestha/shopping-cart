@@ -11,10 +11,13 @@ const token = getTokenFromLocalStorage();
 
 export const ShoppingProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!token);
+  const [totalData, setTotalData] = useState();
 
   const contextValue = {
     isLoggedIn,
     setIsLoggedIn,
+    setTotalData,
+    totalData,
   };
 
   return (

@@ -1,13 +1,15 @@
 import instance from "../Axios/Axios";
 
-export const getProducts = async (searchInput, selectedData) => {
+export const getProducts = async (searchInput, selectedData, skipData) => {
   if (!selectedData) {
-    const products = await instance.get(`/products/search?q=${searchInput}`);
-    const productsResponse = products.data.products;
+    const products = await instance.get(
+      `/products/search?q=${searchInput}&limit=12&skip=${skipData}`
+    );
+    const productsResponse = products.data;
     return productsResponse;
   } else {
     const products = await instance.get(`/products/category/${selectedData}`);
-    const productsResponse = products.data.products;
+    const productsResponse = products.data;
     return productsResponse;
   }
 };

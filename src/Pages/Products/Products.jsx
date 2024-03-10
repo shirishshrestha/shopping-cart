@@ -11,6 +11,7 @@ import { notifyError, notifySuccess } from "../../components/Toast/Toast";
 import ItemSkeleton from "../../components/LoadingSkeleton/ItemSkeleton";
 import { useForm } from "react-hook-form";
 import { queryClient } from "../../Utils/Query/Query";
+import Pagination from "../../components/Pagination/Pagination";
 
 const Products = () => {
   const {
@@ -21,13 +22,14 @@ const Products = () => {
 
   const [searchData, setSearchData] = useState("");
   const [selectedData, setSelectedData] = useState("");
+  const [skipData, setSkipData] = useState(0);
   const [loginPopup, setLoginPopup] = useState(false);
   const [cartItem, setCartItem] = useState();
   const { isLoggedIn } = useShoppingContext();
 
   const { data: ProductsData, isPending } = useQuery({
-    queryKey: ["products", searchData, selectedData],
-    queryFn: () => getProducts(searchData, selectedData),
+    queryKey: ["products", searchData, selectedData, skipData],
+    queryFn: () => getProducts(searchData, selectedData, skipData),
   });
 
   const AddToCart = useMutation({
@@ -74,6 +76,12 @@ const Products = () => {
       queryClient.invalidateQueries("products", selectedData);
     }
   };
+
+  const pagination = Math.ceil(ProductsData?.total / 12);
+  const pagesArray = Array.from(
+    { length: pagination },
+    (_, index) => index + 1
+  );
 
   return (
     <>
@@ -138,7 +146,7 @@ const Products = () => {
                   <option value="womens-dresses">Womens-dresses</option>
                   <option value="womens-shoes">Womens-shoes</option>
                   <option value="mens-shoes">Mens-shoes</option>
-                  <option value="furniture">Mens-shirts</option>
+                  <option value="mens-shirts">Mens-shirts</option>
                   <option value="motorcycle">Motorcycle</option>
                   <option value="lighting">Lighting</option>
                   <option value="automotive">Automotive</option>
@@ -156,11 +164,13 @@ const Products = () => {
           ) : (
             <div
               className={
-                ProductsData?.length > 0 ? "grid grid-cols-4 gap-[3rem]" : ""
+                ProductsData?.products.length > 0
+                  ? "grid grid-cols-4 gap-[3rem]"
+                  : ""
               }
             >
-              {ProductsData?.length > 0 ? (
-                ProductsData.map((product, index) => (
+              {ProductsData?.products.length > 0 ? (
+                ProductsData.products.map((product, index) => (
                   <div
                     key={index}
                     className="flex flex-col items-center justify-start gap-3.5"
@@ -218,6 +228,12 @@ const Products = () => {
               )}
             </div>
           )}
+          <Pagination
+            pagination={pagination}
+            pagesArray={pagesArray}
+            setSkipData={setSkipData}
+            skipData={skipData}
+          />
         </div>
       </section>
     </>
