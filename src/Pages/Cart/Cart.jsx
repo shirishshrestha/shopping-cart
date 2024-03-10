@@ -6,10 +6,6 @@ import { Link } from "react-router-dom";
 import CartProduct from "./CartProduct";
 import { checkoutProductsCart } from "../../Utils/apiSlice/EsewaApiSlice";
 import { useState } from "react";
-import sha256 from "crypto-js/sha256";
-import hmacSHA256 from "crypto-js/hmac-sha256";
-import Base64 from "crypto-js/enc-base64";
-import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 
 const Cart = () => {
   const [transId, setTransId] = useState();

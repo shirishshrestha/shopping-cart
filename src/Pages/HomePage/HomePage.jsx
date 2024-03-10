@@ -14,9 +14,11 @@ import LoginPopup from "../Login/LoginPopup";
 import { useState } from "react";
 import { addItemToCart } from "../../Utils/apiSlice/CartApiSlice";
 import { notifySuccess } from "../../components/Toast/Toast";
+import SwiperSkeleton from "../../components/LoadingSkeleton/SwiperSkeleton";
+import ItemSkeleton from "../../components/LoadingSkeleton/ItemSkeleton";
 
 const HomePage = () => {
-  const { data: FeaturedProduct } = useQuery({
+  const { data: FeaturedProduct, isPending } = useQuery({
     queryKey: ["FeaturedProducts"],
     queryFn: getFeaturedProducts,
   });
@@ -106,28 +108,32 @@ const HomePage = () => {
                 </Link>
               </div>
               <div className="flex flex-row justify-end w-[55%] pt-[3rem] ">
-                <Swiper
-                  spaceBetween={30}
-                  centeredSlides={true}
-                  autoplay={{
-                    delay: 5000,
-                    disableOnInteraction: false,
-                  }}
-                  modules={[Autoplay]}
-                  className="w-fit  "
-                >
-                  {FeaturedProduct?.map((product, index) => (
-                    <SwiperSlide key={index}>
-                      <figure className=" flex justify-center items-center">
-                        <Img
-                          src={product.thumbnail}
-                          alt={product.title}
-                          className=" h-[30rem] object-cover"
-                        />
-                      </figure>
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+                {isPending ? (
+                  <SwiperSkeleton />
+                ) : (
+                  <Swiper
+                    spaceBetween={30}
+                    centeredSlides={true}
+                    autoplay={{
+                      delay: 5000,
+                      disableOnInteraction: false,
+                    }}
+                    modules={[Autoplay]}
+                    className="w-fit  "
+                  >
+                    {FeaturedProduct?.map((product, index) => (
+                      <SwiperSlide key={index}>
+                        <figure className=" flex justify-center items-center">
+                          <Img
+                            src={product.thumbnail}
+                            alt={product.title}
+                            className=" h-[30rem] object-cover"
+                          />
+                        </figure>
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                )}
               </div>
             </div>
           </div>
@@ -145,52 +151,63 @@ const HomePage = () => {
               </Link>
             </div>
           </div>
-          <div className="grid grid-cols-4 gap-y-[3rem]">
-            {FeaturedProduct?.map((product, index) => (
-              <div
-                key={index}
-                className="flex flex-col items-center justify-start gap-3.5"
-              >
-                <Img
-                  src={product.thumbnail}
-                  alt={product.title}
-                  className=" h-[18rem] object-contain"
-                />
-                <div className="flex flex-col items-center justify-start  gap-[9px]">
-                  <Text
-                    size="md"
-                    as="p"
-                    className="!text-gray-800 text-[1.3rem] capitalize   overflow-hidden truncate"
-                  >
-                    {product.title.length > 20
-                      ? `${product.title.substring(0, 20)}...`
-                      : product.title}
-                  </Text>
-                  <Text size="xs" as="p" className="!text-gray-800 capitalize">
-                    {product.brand}
-                  </Text>
-                  <div className="grid grid-cols-2  gap-[2rem]">
-                    <Text as="p" className="!font-medium">
-                      {`$${product.price}`}
+          {isPending ? (
+            <div className="flex flex-col gap-[3rem]">
+              <ItemSkeleton />
+              <ItemSkeleton />
+            </div>
+          ) : (
+            <div className="grid grid-cols-4 gap-y-[3rem]">
+              {FeaturedProduct?.map((product, index) => (
+                <div
+                  key={index}
+                  className="flex flex-col items-center justify-start gap-3.5"
+                >
+                  <Img
+                    src={product.thumbnail}
+                    alt={product.title}
+                    className=" h-[18rem] object-contain"
+                  />
+                  <div className="flex flex-col items-center justify-start  gap-[9px]">
+                    <Text
+                      size="md"
+                      as="p"
+                      className="!text-gray-800 text-[1.3rem] capitalize   overflow-hidden truncate"
+                    >
+                      {product.title.length > 20
+                        ? `${product.title.substring(0, 20)}...`
+                        : product.title}
                     </Text>
-                    <div className="flex gap-[0.5rem]">
-                      <StarSvg />
+                    <Text
+                      size="xs"
+                      as="p"
+                      className="!text-gray-800 capitalize"
+                    >
+                      {product.brand}
+                    </Text>
+                    <div className="grid grid-cols-2  gap-[2rem]">
                       <Text as="p" className="!font-medium">
-                        {product.rating}
+                        {`$${product.price}`}
                       </Text>
+                      <div className="flex gap-[0.5rem]">
+                        <StarSvg />
+                        <Text as="p" className="!font-medium">
+                          {product.rating}
+                        </Text>
+                      </div>
                     </div>
                   </div>
+                  <Button
+                    size="5xl"
+                    className="font-bold min-w-[200px]"
+                    onClick={() => addToCart(product)}
+                  >
+                    Add to Cart
+                  </Button>
                 </div>
-                <Button
-                  size="5xl"
-                  className="font-bold min-w-[200px]"
-                  onClick={() => addToCart(product)}
-                >
-                  Add to Cart
-                </Button>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </>
