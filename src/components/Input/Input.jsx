@@ -1,5 +1,6 @@
 import { ErrorMessage } from "@hookform/error-message";
 import { Text } from "../Components";
+import { useState } from "react";
 
 const shapes = {
   square: "rounded-[0px]",
@@ -33,10 +34,21 @@ const Input = ({
   color = "gray_800",
   required,
   register,
-  errors,
+  prefix,
   suffix,
+  errors,
+  defaultValue,
+  regValue,
+  message,
   ...restProps
 }) => {
+  const [inputValue, setInputValue] = useState(defaultValue);
+  // <-- State to manage the input value
+
+  // Handle change event
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+  };
   return (
     <>
       <div
@@ -46,15 +58,26 @@ const Input = ({
           sizes[size] || ""
         }`}
       >
-        <div>
-          {!!label && <label className="text-gray-700">{label} &nbsp; </label>}
-          <input
-            type={type}
-            name={name}
-            {...register(name, { required: required })}
-            placeholder={placeholder}
-            {...restProps}
-          />
+        <div className="flex gap-3 items-center justify-center">
+          {!!label && <label className="text-gray-700  ">{label}</label>}
+          <div className="flex justify-between items-center gap-2 w-full">
+            {!!prefix && prefix}
+            <input
+              type={type}
+              name={name}
+              {...register(name, {
+                required: required,
+                onChange: handleChange,
+                pattern: {
+                  value: new RegExp(regValue),
+                  message: message,
+                },
+              })}
+              placeholder={placeholder}
+              {...restProps}
+            />
+            {!!suffix && suffix}
+          </div>
         </div>
 
         <ErrorMessage

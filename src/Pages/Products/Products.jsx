@@ -1,23 +1,33 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getProducts } from "../../Utils/apiSlice/ProductsApiSlice";
 import { Helmet } from "react-helmet";
-import { Button, Heading, Img, Text } from "../../components/Components";
-import { StarSvg } from "../../assets/SVG/SvgImages";
+import { Button, Heading, Img, Input, Text } from "../../components/Components";
+import { ErrorSvg, SearchSvg, StarSvg } from "../../assets/SVG/SvgImages";
 import { addItemToCart } from "../../Utils/apiSlice/CartApiSlice";
 import LoginPopup from "../Login/LoginPopup";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { notifyError, notifySuccess } from "../../components/Toast/Toast";
 import ItemSkeleton from "../../components/LoadingSkeleton/ItemSkeleton";
+import { useForm } from "react-hook-form";
+import { queryClient } from "../../Utils/Query/Query";
 
 const Products = () => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
+
+  const [searchData, setSearchData] = useState("");
+  const [selectedData, setSelectedData] = useState("");
   const [loginPopup, setLoginPopup] = useState(false);
   const [cartItem, setCartItem] = useState();
   const { isLoggedIn } = useShoppingContext();
 
   const { data: ProductsData, isPending } = useQuery({
-    queryKey: ["products"],
-    queryFn: getProducts,
+    queryKey: ["products", searchData, selectedData],
+    queryFn: () => getProducts(searchData, selectedData),
   });
 
   const AddToCart = useMutation({
@@ -47,6 +57,24 @@ const Products = () => {
     setLoginPopup(false);
     document.body.style.overflow = "auto";
   };
+
+  const searchInput = (data) => {
+    setSelectedData("");
+    setSearchData(data.search);
+    queryClient.invalidateQueries("products", searchData);
+  };
+
+  const handleSelectChange = (e) => {
+    const selectedValue = e.target.value;
+    if (e.target.value === "None") {
+      setSelectedData("");
+      queryClient.invalidateQueries("products");
+    } else {
+      setSelectedData(selectedValue);
+      queryClient.invalidateQueries("products", selectedData);
+    }
+  };
+
   return (
     <>
       <Helmet>
@@ -72,10 +100,52 @@ const Products = () => {
       )}
       <section className="products">
         <div className="flex flex-col items-center justify-start w-full pt-[2rem] pb-[5rem] gap-8 ">
-          <div className="flex flex-row justify-between items-center w-full">
+          <div className="flex flex-col w-full">
             <Heading size="s" as="h2">
               Products
             </Heading>
+            <div className="flex w-full justify-between">
+              <form onSubmit={handleSubmit(searchInput)}>
+                <Input
+                  prefix={<SearchSvg />}
+                  name="search"
+                  register={register}
+                  errors={errors}
+                  placeholder="Search"
+                  defaultValue=""
+                  regValue={"^[a-zA-Z\\s]+$"}
+                  message={"Invalid input. Please enter alphabets only"}
+                  className="bg-gray-100 w-fit mt-7"
+                />
+              </form>
+              <div className="flex gap-5 justify-center items-center">
+                <Text className="text-gray-800">Filter By Categories: </Text>
+                <select
+                  name="filter"
+                  className="border-solid rounded-lg p-1 border-gray-800 border-2"
+                  onChange={handleSelectChange}
+                >
+                  <option value={null} selected>
+                    None
+                  </option>
+                  <option value="smartphones">Smartphones </option>
+                  <option value="laptops">Laptops </option>
+                  <option value="fragrances">Fragrances </option>
+                  <option value="skincare">Skincare</option>
+                  <option value="groceries">Groceries</option>
+                  <option value="home-decoration">Home-decoration</option>
+                  <option value="furniture">Furniture</option>
+                  <option value="womens-dresses">Womens-dresses</option>
+                  <option value="womens-shoes">Womens-shoes</option>
+                  <option value="mens-shoes">Mens-shoes</option>
+                  <option value="furniture">Mens-shirts</option>
+                  <option value="motorcycle">Motorcycle</option>
+                  <option value="lighting">Lighting</option>
+                  <option value="automotive">Automotive</option>
+                  <option value="sunglasses">Sunglasses</option>
+                </select>
+              </div>
+            </div>
           </div>
           {isPending ? (
             <div className="flex flex-col gap-[3rem]">
@@ -84,55 +154,68 @@ const Products = () => {
               <ItemSkeleton />
             </div>
           ) : (
-            <div className="grid grid-cols-4 gap-[3rem]">
-              {ProductsData?.map((product, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-start gap-3.5"
-                >
-                  <Img
-                    src={product.thumbnail}
-                    alt={product.title}
-                    className=" h-[18rem] object-cover"
-                  />
-                  <div className="flex flex-col items-center justify-start  gap-[9px]">
-                    <Text
-                      size="md"
-                      as="p"
-                      className="!text-gray-800 text-[1.3rem] capitalize   overflow-hidden truncate"
-                    >
-                      {product.title.length > 20
-                        ? `${product.title.substring(0, 20)}...`
-                        : product.title}
-                    </Text>
-                    <Text
-                      size="xs"
-                      as="p"
-                      className="!text-gray-800 capitalize"
-                    >
-                      {product.brand}
-                    </Text>
-                    <div className="grid grid-cols-2  gap-[2rem]">
-                      <Text as="p" className="!font-medium">
-                        {`$${product.price}`}
+            <div
+              className={
+                ProductsData?.length > 0 ? "grid grid-cols-4 gap-[3rem]" : ""
+              }
+            >
+              {ProductsData?.length > 0 ? (
+                ProductsData.map((product, index) => (
+                  <div
+                    key={index}
+                    className="flex flex-col items-center justify-start gap-3.5"
+                  >
+                    <Img
+                      src={product.thumbnail}
+                      alt={product.title}
+                      className=" h-[18rem] object-cover"
+                    />
+                    <div className="flex flex-col items-center justify-start  gap-[9px]">
+                      <Text
+                        size="md"
+                        as="p"
+                        className="!text-gray-800 text-[1.3rem] capitalize   overflow-hidden truncate"
+                      >
+                        {product.title.length > 20
+                          ? `${product.title.substring(0, 20)}...`
+                          : product.title}
                       </Text>
-                      <div className="flex gap-[0.5rem]">
-                        <StarSvg />
+                      <Text
+                        size="xs"
+                        as="p"
+                        className="!text-gray-800 capitalize"
+                      >
+                        {product.brand}
+                      </Text>
+                      <div className="grid grid-cols-2  gap-[2rem]">
                         <Text as="p" className="!font-medium">
-                          {product.rating}
+                          {`$${product.price}`}
                         </Text>
+                        <div className="flex gap-[0.5rem]">
+                          <StarSvg />
+                          <Text as="p" className="!font-medium">
+                            {product.rating}
+                          </Text>
+                        </div>
                       </div>
                     </div>
+                    <Button
+                      size="5xl"
+                      className="font-bold min-w-[200px]"
+                      onClick={() => addToCart(product)}
+                    >
+                      Add to Cart
+                    </Button>
                   </div>
-                  <Button
-                    size="5xl"
-                    className="font-bold min-w-[200px]"
-                    onClick={() => addToCart(product)}
-                  >
-                    Add to Cart
-                  </Button>
+                ))
+              ) : (
+                <div className="flex flex-col items-center justify-center w-full h-[50vh]">
+                  <ErrorSvg />
+                  <Text size="md" className="text-gray-800">
+                    Whoops! Search Item Not Found
+                  </Text>
                 </div>
-              ))}
+              )}
             </div>
           )}
         </div>
