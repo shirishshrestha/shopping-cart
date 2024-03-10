@@ -63,6 +63,7 @@ const Products = () => {
 
   const searchInput = (data) => {
     setSelectedData("");
+    setSkipData(0);
     setSearchData(data.search);
     queryClient.invalidateQueries("products", searchData);
   };
@@ -70,6 +71,7 @@ const Products = () => {
   const handleSelectChange = (e) => {
     const selectedValue = e.target.value;
     if (e.target.value === "None") {
+      setSearchData("");
       setSelectedData("");
       queryClient.invalidateQueries("products");
     } else {
