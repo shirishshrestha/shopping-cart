@@ -12,6 +12,7 @@ import ItemSkeleton from "../../components/LoadingSkeleton/ItemSkeleton";
 import { useForm } from "react-hook-form";
 import { queryClient } from "../../Utils/Query/Query";
 import Pagination from "../../components/Pagination/Pagination";
+import Skeleton from "react-loading-skeleton";
 
 const Products = () => {
   const {
@@ -228,12 +229,20 @@ const Products = () => {
               )}
             </div>
           )}
-          <Pagination
-            pagination={pagination}
-            pagesArray={pagesArray}
-            setSkipData={setSkipData}
-            skipData={skipData}
-          />
+          {isPending ? (
+            <div className="flex gap-[1rem] mt-[2.9rem]">
+              <Skeleton height={60} width={60} />
+              <Skeleton height={60} width={60} />
+              <Skeleton height={60} width={60} />
+            </div>
+          ) : (
+            <Pagination
+              pagination={pagination}
+              pagesArray={pagesArray}
+              setSkipData={setSkipData}
+              skipData={skipData}
+            />
+          )}
         </div>
       </section>
     </>
