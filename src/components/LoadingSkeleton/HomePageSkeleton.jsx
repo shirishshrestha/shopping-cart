@@ -1,10 +1,10 @@
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 
-const ItemSkeleton = () => {
+const HomePageSkeleton = () => {
   return (
-    <div className="grid grid-cols-4 mx-auto justify-center items-center gap-[3rem] ">
-      {Array.from({ length: 12 }).map((_, index) => (
+    <div className="grid grid-cols-4 mx-auto justify-center items-center gap-[3rem]">
+      {Array.from({ length: 8 }).map((_, index) => (
         <div
           key={index}
           className="flex flex-col items-center justify-start gap-3.5"
@@ -31,4 +31,4 @@ const ItemSkeleton = () => {
   );
 };
 
-export { ItemSkeleton };
+export { HomePageSkeleton };

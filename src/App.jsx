@@ -1,6 +1,5 @@
-import { Footer, Header } from "./components/Components";
+import { CustomToastContainer, Footer, Header } from "./components/Components";
 import { Outlet } from "react-router-dom";
-import CustomToastContainer from "./components/Toast/ToastContainer";
 
 const App = () => {
   return (

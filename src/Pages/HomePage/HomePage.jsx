@@ -1,5 +1,11 @@
 import { Helmet } from "react-helmet";
-import { Button, Heading, Img, Text } from "../../components/Components";
+import {
+  Button,
+  Heading,
+  Img,
+  SwiperSkeleton,
+  Text,
+} from "../../components/Components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -14,8 +20,7 @@ import LoginPopup from "../Login/LoginPopup";
 import { useState } from "react";
 import { addItemToCart } from "../../Utils/apiSlice/CartApiSlice";
 import { notifySuccess } from "../../components/Toast/Toast";
-import SwiperSkeleton from "../../components/LoadingSkeleton/SwiperSkeleton";
-import ItemSkeleton from "../../components/LoadingSkeleton/ItemSkeleton";
+import { HomePageSkeleton } from "../../components/LoadingSkeleton/HomePageSkeleton";
 
 const HomePage = () => {
   const { data: FeaturedProduct, isPending } = useQuery({
@@ -152,10 +157,7 @@ const HomePage = () => {
             </div>
           </div>
           {isPending ? (
-            <div className="flex flex-col gap-[3rem]">
-              <ItemSkeleton />
-              <ItemSkeleton />
-            </div>
+            <HomePageSkeleton />
           ) : (
             <div className="grid grid-cols-4 gap-y-[3rem]">
               {FeaturedProduct?.map((product, index) => (

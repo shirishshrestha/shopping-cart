@@ -19,4 +19,4 @@ const CustomToastContainer = () => {
   );
 };
 
-export default CustomToastContainer;
+export { CustomToastContainer };

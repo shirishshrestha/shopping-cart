@@ -2,16 +2,22 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { getProducts } from "../../Utils/apiSlice/ProductsApiSlice";
 import { Helmet } from "react-helmet";
-import { Button, Heading, Img, Input, Text } from "../../components/Components";
+import {
+  Button,
+  Heading,
+  Img,
+  Input,
+  ItemSkeleton,
+  Pagination,
+  Text,
+} from "../../components/Components";
 import { ErrorSvg, SearchSvg, StarSvg } from "../../assets/SVG/SvgImages";
 import { addItemToCart } from "../../Utils/apiSlice/CartApiSlice";
 import LoginPopup from "../Login/LoginPopup";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { notifyError, notifySuccess } from "../../components/Toast/Toast";
-import ItemSkeleton from "../../components/LoadingSkeleton/ItemSkeleton";
 import { useForm } from "react-hook-form";
 import { queryClient } from "../../Utils/Query/Query";
-import Pagination from "../../components/Pagination/Pagination";
 import Skeleton from "react-loading-skeleton";
 
 const Products = () => {
@@ -159,11 +165,7 @@ const Products = () => {
             </div>
           </div>
           {isPending ? (
-            <div className="flex flex-col gap-[3rem]">
-              <ItemSkeleton />
-              <ItemSkeleton />
-              <ItemSkeleton />
-            </div>
+            <ItemSkeleton />
           ) : (
             <div
               className={
@@ -232,7 +234,7 @@ const Products = () => {
             </div>
           )}
           {isPending ? (
-            <div className="flex gap-[1rem] mt-[2.9rem]">
+            <div className="flex gap-[1rem] mt-[1rem]">
               <Skeleton height={60} width={60} />
               <Skeleton height={60} width={60} />
               <Skeleton height={60} width={60} />

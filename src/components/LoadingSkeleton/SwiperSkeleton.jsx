@@ -9,4 +9,4 @@ const SwiperSkeleton = () => {
   );
 };
 
-export default SwiperSkeleton;
+export { SwiperSkeleton };

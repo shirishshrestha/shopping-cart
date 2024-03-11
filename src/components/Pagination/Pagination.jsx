@@ -21,4 +21,4 @@ const Pagination = ({ pagination, pagesArray, setSkipData, skipData }) => {
   );
 };
 
-export default Pagination;
+export {Pagination};
