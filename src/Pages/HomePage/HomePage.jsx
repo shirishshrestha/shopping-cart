@@ -8,8 +8,6 @@ import {
 } from "../../components/Components";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import "swiper/css/pagination";
-import "swiper/css/navigation";
 import { Autoplay } from "swiper/modules";
 import { ArrowSvg, StarSvg } from "../../assets/SVG/SvgImages";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -83,19 +81,19 @@ const HomePage = () => {
       <section>
         <div className="flex flex-row justify-center w-full pb-[5rem]">
           <div className="flex flex-row justify-end w-full ">
-            <div className="flex flex-row justify-end items-start w-full mx-auto max-w-[1776px]">
-              <div className="flex flex-col items-start justify-start w-[40%] mt-[102px] ">
+            <div className="flex flex-row justify-end items-start w-full mx-auto max-w-[1776px] ds:justify-center mb:flex-col-reverse ">
+              <div className="flex flex-col items-start justify-start w-[40%] mt-[102px] ds:mt-[80px] mb:w-full mb:mt-[20px]">
                 <Text
                   size="xl"
                   as="p"
-                  className="!text-gray-800 !font-[playfairdisplay]"
+                  className="!text-gray-800 !font-[playfairdisplay] ds:!text-[4.9rem] lp:!text-[4.2rem]"
                 >
                   Shop Smarter, Not Harder
                 </Text>
 
                 <Text
                   as="p"
-                  className="w-[93%] mt-[34px] !text-gray-800 leading-8"
+                  className="w-[93%] mt-[34px] !text-gray-800 leading-8 ds:mt-[20px] lp:text-[1rem]"
                 >
                   Let your purchases shape a world of endless possibilities in
                   the realm of online treasures.
@@ -104,13 +102,13 @@ const HomePage = () => {
                   <Button
                     size="3xl"
                     rightIcon={<ArrowSvg />}
-                    className="mt-14 gap-2.5 font-medium min-w-[245px]"
+                    className="mt-14 gap-2.5 font-medium min-w-[245px] ds:mt-[30px] lp:h-14 lp:px-2 lp:text-xl"
                   >
                     Shop Now
                   </Button>
                 </Link>
               </div>
-              <div className="flex flex-row justify-end w-[55%] pt-[3rem] ">
+              <div className=" flex flex-row justify-end w-[55%] pt-[3rem] mb:w-full mb:pt-[1rem]">
                 {isPending ? (
                   <SwiperSkeleton />
                 ) : (
@@ -122,7 +120,7 @@ const HomePage = () => {
                       disableOnInteraction: false,
                     }}
                     modules={[Autoplay]}
-                    className="w-fit  "
+                    className="w-fit"
                   >
                     {FeaturedProduct?.map((product, index) => (
                       <SwiperSlide key={index}>
@@ -157,7 +155,7 @@ const HomePage = () => {
           {isPending ? (
             <HomePageSkeleton />
           ) : (
-            <div className="grid grid-cols-4 gap-y-[3rem]">
+            <div className="grid grid-cols-4 gap-y-[3rem] ds:grid-cols-3 lp:grid-cols-2 mb:grid-cols-1">
               {FeaturedProduct?.map((product, index) => (
                 <div
                   key={index}

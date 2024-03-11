@@ -6,7 +6,7 @@ const Pagination = ({ pagination, pagesArray, setSkipData, skipData }) => {
     queryClient.invalidateQueries("products", skipData);
   };
   return (
-    <div className="flex gap-[1rem] mt-[1.5rem]">
+    <div className="flex gap-[1rem] mt-[1.5rem] mb:flex-wrap mb:justify-center">
       {pagination > 2 &&
         pagesArray.map((page, index) => (
           <div
@@ -21,4 +21,4 @@ const Pagination = ({ pagination, pagesArray, setSkipData, skipData }) => {
   );
 };
 
-export {Pagination};
+export { Pagination };

@@ -69,7 +69,6 @@ const Products = () => {
     setSelectedData("");
     setSkipData(0);
     setSearchData(data.search);
-    queryClient.invalidateQueries("products", searchData);
   };
 
   const handleSelectChange = (e) => {
@@ -77,10 +76,8 @@ const Products = () => {
     if (e.target.value === "None") {
       setSearchData("");
       setSelectedData("");
-      queryClient.invalidateQueries("products");
     } else {
       setSelectedData(selectedValue);
-      queryClient.invalidateQueries("products", selectedData);
     }
   };
 
@@ -114,12 +111,12 @@ const Products = () => {
         </div>
       )}
       <section className="products">
-        <div className="flex flex-col items-center justify-start w-full pt-[2rem] pb-[5rem] gap-8 ">
+        <div className="flex flex-col items-center justify-start w-full pt-[2rem] pb-[5rem] gap-8 mb:pb-[1rem]">
           <div className="flex flex-col w-full">
             <Heading size="s" as="h2">
               Products
             </Heading>
-            <div className="flex w-full justify-between">
+            <div className="flex w-full justify-between mb:flex-col mb:gap-[2rem]">
               <form onSubmit={handleSubmit(searchInput)}>
                 <Input
                   prefix={<SearchSvg />}
@@ -133,14 +130,14 @@ const Products = () => {
                   className="bg-gray-100 w-fit mt-7"
                 />
               </form>
-              <div className="flex gap-5 justify-center items-center">
+              <div className="flex gap-5 justify-center items-center mb:justify-start">
                 <Text className="text-gray-800">Filter By Categories: </Text>
                 <select
                   name="filter"
                   className="border-solid rounded-lg p-1 border-gray-800 border-2"
                   onChange={handleSelectChange}
                 >
-                  <option value={null} selected>
+                  <option value={null} defaultValue={"None"}>
                     None
                   </option>
                   <option value="smartphones">Smartphones </option>
@@ -168,7 +165,7 @@ const Products = () => {
             <div
               className={
                 ProductsData?.products.length > 0
-                  ? "grid grid-cols-4 gap-[3rem]"
+                  ? "grid grid-cols-4 gap-[3rem] ds:grid-cols-3 ds:gap-[3rem] lp:grid-cols-2 mb:grid-cols-1 "
                   : ""
               }
             >
@@ -232,11 +229,16 @@ const Products = () => {
             </div>
           )}
           {isPending ? (
-            <div className="flex gap-[1rem] mt-[1rem]">
-              <Skeleton height={60} width={60} />
-              <Skeleton height={60} width={60} />
-              <Skeleton height={60} width={60} />
-            </div>
+            <>
+              <div className="flex gap-[1rem] mt-[1rem] mb:mt-[0rem]">
+                <Skeleton height={60} width={60} />
+                <Skeleton height={60} width={60} />
+                <Skeleton height={60} width={60} />
+              </div>
+              <div className="hidden mb:inline mb:-mt-[0.5rem]">
+                <Skeleton height={60} width={60} />
+              </div>
+            </>
           ) : (
             <Pagination
               pagination={pagination}

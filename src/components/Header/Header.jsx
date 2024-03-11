@@ -27,6 +27,7 @@ const Header = () => {
   const { isLoggedIn, setIsLoggedIn } = useShoppingContext();
 
   const handleLogout = () => {
+    setMobileMenuOpen(false);
     notifySuccess("Logged out successfully");
     clearTokenFromLocalStorage();
     logout();
@@ -95,7 +96,7 @@ const Header = () => {
             )}
           </div>
         </nav>
-        <div className="w-fit mr-[4rem] absolute right-[9rem] top-[1.5rem]">
+        <div className="w-fit mr-[4rem] absolute right-[9rem] top-[1.5rem] lp:right-[1rem] lp:top-[1rem]">
           <Link to="/cart">
             <Button
               onClick={handleCart}
@@ -143,6 +144,7 @@ const Header = () => {
                       key={item.name}
                       to={item.to}
                       className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.name}
                     </Link>

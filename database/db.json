@@ -1,17 +1,17 @@
 {
   "products": [
     {
-      "id": "0ac8",
+      "id": "7406",
       "productData": {
-        "id": 12,
-        "title": "Brown Perfume",
-        "description": "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
-        "price": 40,
-        "rating": 4,
-        "stock": 52,
-        "brand": "Royal_Mirage",
-        "category": "fragrances",
-        "thumbnail": "https://cdn.dummyjson.com/product-images/12/thumbnail.jpg"
+        "id": 1,
+        "title": "iPhone 9",
+        "description": "An apple mobile which is nothing like apple",
+        "price": 549,
+        "rating": 4.69,
+        "stock": 94,
+        "brand": "Apple",
+        "category": "smartphones",
+        "thumbnail": "https://cdn.dummyjson.com/product-images/1/thumbnail.jpg"
       }
     }
   ]

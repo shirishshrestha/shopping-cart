@@ -51,7 +51,7 @@ const Cart = () => {
           </h2>
           <div
             className={`mt-12  ${
-              CartData && CartData.length > 0 && "flex gap-[2rem]"
+              CartData && CartData.length > 0 && "flex gap-[2rem] lp:flex-col"
             }`}
           >
             <section
@@ -61,10 +61,10 @@ const Cart = () => {
               <h2 id="cart-heading" className="sr-only">
                 Items in your shopping cart
               </h2>
-              <div className="min-h-[52.8vh]  flex flex-col gap-4 ">
+              <div className="min-h-[52.8vh]  flex flex-col gap-4 lp:min-h-fit">
                 {CartData && CartData.length > 0 ? (
                   CartData.map((product, index) => (
-                    <CartProduct product={product} />
+                    <CartProduct key={index} product={product} />
                   ))
                 ) : (
                   <div className="flex flex-col h-[52.8vh] w-full items-center justify-center rounded-md px-3.5 py-2.5 text-xl font-semibold leading-7 text-gray-800 gap-[1.5rem]">
@@ -79,7 +79,7 @@ const Cart = () => {
               </div>
             </section>
             {CartData && CartData.length > 0 ? (
-              <div className="flex-auto p-[1rem] bg-gray-50 !h-fit">
+              <div className="flex-auto p-[1rem] bg-gray-50 !h-fit lp:mb-[20rem] mb:mb-[2rem]">
                 <Text size="md" as="h4" className="text-gray-800 leading-10">
                   Order Summary
                 </Text>

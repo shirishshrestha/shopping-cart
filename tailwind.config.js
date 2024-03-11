@@ -3,6 +3,15 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        ds: { max: "1279px" },
+
+        lp: { max: "1023px" },
+
+        tb: { max: "767px" },
+
+        mb: { max: "639px" },
+      },
       colors: {
         white: { A700: "#ffffff" },
         gray: {

@@ -16,18 +16,22 @@ const CartProduct = ({ product }) => {
   };
 
   return (
-    <section className="flex gap-[1rem] items-center bg-gray-50">
-      <figure>
+    <section className="flex gap-[1rem] items-center bg-gray-50 mb:flex-col mb:items-start mb:w-full mb:py-[2rem]">
+      <figure className="mb:flex mb:justify-center mb:w-full">
         <Img
-          className="h-32 w-32 object-cover"
+          className="h-auto w-32 object-cover mb:w-48"
           src={product.productData.thumbnail}
         />
       </figure>
-      <div className="flex flex-col gap-[0.2rem]">
+      <div className="flex flex-col gap-[0.2rem] mb:items-center">
         <Text size="md" as="h4" className="capitalize text-gray-800">
           {product.productData.title}
         </Text>
-        <Text size="xs" as="p" className="capitalize w-[33.3rem] text-gray-800">
+        <Text
+          size="xs"
+          as="p"
+          className="capitalize w-[33.3rem] text-gray-800 ds:w-[20rem] mb:w-full mb:text-center"
+        >
           {product.productData.description}
         </Text>
         <Text size="xs" as="p">
@@ -37,7 +41,7 @@ const CartProduct = ({ product }) => {
           ${product.productData.price}
         </Text>
       </div>
-      <div>
+      <div className="mb:w-full mb:flex mb:justify-center ">
         <Button
           size="md"
           className="text-xl"

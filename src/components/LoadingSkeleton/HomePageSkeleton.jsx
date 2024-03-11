@@ -3,7 +3,7 @@ import Skeleton from "react-loading-skeleton";
 
 const HomePageSkeleton = () => {
   return (
-    <div className="grid grid-cols-4 mx-auto justify-center items-center gap-[3rem]">
+    <div className="grid grid-cols-4 mx-auto justify-center items-center gap-[3.7rem] ds:grid-cols-3 ds:gap-[3rem] lp:grid-cols-2 lp:gap-x-[8.8rem] mb:grid-cols-1 mb:grid-x-[0]">
       {Array.from({ length: 8 }).map((_, index) => (
         <div
           key={index}

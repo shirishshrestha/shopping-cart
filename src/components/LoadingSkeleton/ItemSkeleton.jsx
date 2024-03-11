@@ -3,13 +3,13 @@ import Skeleton from "react-loading-skeleton";
 
 const ItemSkeleton = () => {
   return (
-    <div className="grid grid-cols-4 mx-auto justify-center items-center gap-[3rem] ">
+    <div className="grid grid-cols-4 mx-auto justify-center items-center gap-[3.7rem] ds:grid-cols-3 ds:gap-[3rem] lp:grid-cols-2  lp:gap-x-[8.8rem] mb:grid-cols-1">
       {Array.from({ length: 12 }).map((_, index) => (
         <div
           key={index}
           className="flex flex-col items-center justify-start gap-3.5"
         >
-          <Skeleton width={288} height={288} />
+          <Skeleton width={300} height={288} />
 
           <div className="flex flex-col items-center justify-start  gap-[9px]">
             <Skeleton width={150} height={10} style={{ margin: "auto" }} />

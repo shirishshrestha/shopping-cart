@@ -13,8 +13,8 @@ const Footer = () => {
   const year = new Date().getFullYear();
   return (
     <footer className=" flex justify-center items-center w-full p-[30px] bg-gray-800">
-      <div className="main-container w-full flex flex-col items-start justify-center  mt-[31px]  gap-[82px]">
-        <div className="flex w-full  justify-between ">
+      <div className="main-container w-full flex flex-col items-start justify-center  mt-[31px]  gap-[82px] lp:items-center">
+        <div className="flex w-full  justify-between lp:grid lp:grid-cols-2 lp:gap-[3rem] mb:grid-cols-1 ">
           <div className="flex flex-col items-start justify-start  gap-[30px]">
             <Heading as="h4" className="!text-white-A700">
               Join our Newsletter
