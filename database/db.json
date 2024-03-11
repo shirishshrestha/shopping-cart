@@ -1,17 +1,17 @@
 {
   "products": [
     {
-      "id": "41b2",
+      "id": "0ac8",
       "productData": {
-        "id": 11,
-        "title": "perfume Oil",
-        "description": "Mega Discount, Impression of Acqua Di Gio by GiorgioArmani concentrated attar perfume Oil",
-        "price": 13,
-        "rating": 4.26,
-        "stock": 65,
-        "brand": "Impression of Acqua Di Gio",
+        "id": 12,
+        "title": "Brown Perfume",
+        "description": "Royal_Mirage Sport Brown Perfume for Men & Women - 120ml",
+        "price": 40,
+        "rating": 4,
+        "stock": 52,
+        "brand": "Royal_Mirage",
         "category": "fragrances",
-        "thumbnail": "https://cdn.dummyjson.com/product-images/11/thumbnail.jpg"
+        "thumbnail": "https://cdn.dummyjson.com/product-images/12/thumbnail.jpg"
       }
     }
   ]

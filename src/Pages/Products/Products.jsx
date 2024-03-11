@@ -58,13 +58,11 @@ const Products = () => {
       setLoginPopup(!signal);
     } else {
       setLoginPopup(true);
-      document.body.style.overflow = "hidden";
     }
   };
 
   const handleLoginPopupClose = () => {
     setLoginPopup(false);
-    document.body.style.overflow = "auto";
   };
 
   const searchInput = (data) => {

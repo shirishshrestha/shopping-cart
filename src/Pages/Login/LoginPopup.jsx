@@ -31,7 +31,6 @@ const LoginPopup = ({
       setTokenToLocalStorage(data.token);
       setIsLoggedIn(true);
       setLoginPopup(false);
-      document.body.style.overflow = "auto";
       navigate("/");
       notifySuccess("Logged in successfully");
       addToCart(cartItem, true);
