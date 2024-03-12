@@ -10,9 +10,9 @@ cd IntuCart
 ## Run the Project Locally:  
 To run the project locally, follow these steps:  
 
-1. Install dependencies:
+1. Install dependencies:  
    npm install  
-2.Start the project:
+2.Start the project:  
    npm run dev  
 
 It should be in http://localhost:5713 for the eSewa success and failure pages to run, as the redirection URLs are set to:  
