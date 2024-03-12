@@ -1,8 +1,32 @@
-# React + Vite
+# IntuCart
+## Getting Started
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Clone the Project:
 
-Currently, two official plugins are available:
+bash
+git clone https://github.com/shirishshrestha/shopping-cart
+cd IntuCart
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run the Project Locally:
+To run the project locally, follow these steps:
+
+1. Install dependencies:
+   npm install
+2.Start the project:
+   npm run dev
+
+It should be in http://localhost:5713 for the eSewa success and failure pages to run, as the redirection URLs are set to:
+  su: http://localhost:5173/esewasuccess
+  fu: http://localhost:5173/esewafail
+
+### JSON Server for Cart Functionality:
+  To enable proper cart functionality, start the JSON server by running the following command in another terminal:
+    - npm start
+   The JSON server will be accessible at http://localhost:3000.
+
+## Login Credentials
+
+Use the following credentials for logging into the application:
+
+- **Username:** atuny0
+- **Password:** 9uQFF1Lh
