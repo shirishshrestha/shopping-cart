@@ -9,27 +9,34 @@ const EsewaFailed = () => {
     navigate("/");
   };
   return (
-    <section className="login flex flex-col justify-center items-center w-full h-[100vh]">
-      <ErrorSvg />
-      <Text as={"h4"} size="md" className="text-gray-800 mt-[16px]">
-        Payment Failed
-      </Text>
+    <>
+      <Helmet>
+        <title>Payment Failed</title>
+        <link rel="icon" type="image/svg+xml" href="/images/helmet.svg" />
+        <meta name="description" content="Shop the extraordinary" />
+      </Helmet>
+      <section className="login flex flex-col justify-center items-center w-full h-[100vh]">
+        <ErrorSvg />
+        <Text as={"h4"} size="md" className="text-gray-800 mt-[16px]">
+          Payment Failed
+        </Text>
 
-      <div>
         <div>
-          <Text size="xs" className="mt-[64px]">
-            Please contact the admin at{" "}
-            <a className="underline" href="mailto:admin@intucart.com">
-              admin@intucart.com
-            </a>{" "}
-            for help
-          </Text>
+          <div>
+            <Text size="xs" className="mt-[64px]">
+              Please contact the admin at{" "}
+              <a className="underline" href="mailto:admin@intucart.com">
+                admin@intucart.com
+              </a>{" "}
+              for help
+            </Text>
+          </div>
         </div>
-      </div>
-      <Button className="mt-[120px]" onClick={onClickHome}>
-        Home
-      </Button>
-    </section>
+        <Button className="mt-[120px]" onClick={onClickHome}>
+          Home
+        </Button>
+      </section>
+    </>
   );
 };
 

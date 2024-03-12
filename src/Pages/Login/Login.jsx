@@ -1,6 +1,11 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { Button, CustomToastContainer, Input, Text } from "../../components/Components";
+import {
+  Button,
+  CustomToastContainer,
+  Input,
+  Text,
+} from "../../components/Components";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../Utils/apiSlice/ProductsApiSlice";
 import { setTokenToLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
@@ -44,49 +49,60 @@ const Login = () => {
   };
 
   return (
-    <section className="login flex flex-col justify-center items-center w-full h-[100vh]">
-      <Text className="pb-12 text-gray-800 font-semibold " size="lg" as={"h2"}>
-        Login
-      </Text>
-      <form
-        className="flex flex-col "
-        onSubmit={handleSubmit(handleLoginSubmit)}
-      >
-        <Input
-          name="username"
-          type="text"
-          placeholder="Enter your username"
-          className="font-xl"
-          label="Username:"
-          register={register}
-          errors={errors}
-          required={"Please enter your username"}
-        />
-        <Input
-          name="password"
-          type="password"
-          placeholder="Enter your password"
-          className="font-xl pt-4"
-          label="Password:"
-          register={register}
-          errors={errors}
-          required={"Please enter your password"}
-        />
-        <Button className="mt-[2rem]">Login</Button>
-      </form>
-      <div className="pt-[3rem] ">
-        <Text className="text-gray-800">
-          Go To &ensp;
-          <span
-            className="text-white-A700 px-9 py-[0.4rem] bg-gray-800 cursor-pointer text-[1rem] "
-            onClick={navigateHome}
-          >
-            Home
-          </span>
+    <>
+      <Helmet>
+        <title>IntuCart | Shop the Extraordinary</title>
+        <link rel="icon" type="image/svg+xml" href="/images/helmet.svg" />
+        <meta name="description" content="Shop the extraordinary" />
+      </Helmet>
+      <section className="login flex flex-col justify-center items-center w-full h-[100vh]">
+        <Text
+          className="pb-12 text-gray-800 font-semibold "
+          size="lg"
+          as={"h2"}
+        >
+          Login
         </Text>
-      </div>
-      <CustomToastContainer />
-    </section>
+        <form
+          className="flex flex-col "
+          onSubmit={handleSubmit(handleLoginSubmit)}
+        >
+          <Input
+            name="username"
+            type="text"
+            placeholder="Enter your username"
+            className="font-xl"
+            label="Username:"
+            register={register}
+            errors={errors}
+            required={"Please enter your username"}
+          />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            className="font-xl pt-4"
+            label="Password:"
+            register={register}
+            errors={errors}
+            required={"Please enter your password"}
+          />
+          <Button className="mt-[2rem]">Login</Button>
+        </form>
+        <div className="pt-[3rem] ">
+          <Text className="text-gray-800">
+            Go To &ensp;
+            <span
+              className="text-white-A700 px-9 py-[0.4rem] bg-gray-800 cursor-pointer text-[1rem] "
+              onClick={navigateHome}
+            >
+              Home
+            </span>
+          </Text>
+        </div>
+        <CustomToastContainer />
+      </section>
+    </>
   );
 };
 

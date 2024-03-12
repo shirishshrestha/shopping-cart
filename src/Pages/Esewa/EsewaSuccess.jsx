@@ -36,55 +36,62 @@ const EsewaSuccess = () => {
   };
 
   return (
-    <section className="login flex flex-col justify-center items-center w-full h-[100vh]">
-      <SuccessTick />
-      <Text as={"h4"} size="md" className="text-gray-800 mt-[16px]">
-        Payment Successful
-      </Text>
-      <Text size="xs" className="text-gray-800 mt-[8px] text-center">
-        Your payment is complete.
-        <br /> Details of transaction are included below.
-      </Text>
-      <div>
-        <Text size="xs" className="text-gray-800 mt-[8px] text-center">
-          Reference Number <span className="text-[#527DD0]">#{refId}</span>
+    <>
+      <Helmet>
+        <title>Payment Success</title>
+        <link rel="icon" type="image/svg+xml" href="/images/helmet.svg" />
+        <meta name="description" content="Shop the extraordinary" />
+      </Helmet>
+      <section className="login flex flex-col justify-center items-center w-full h-[100vh]">
+        <SuccessTick />
+        <Text as={"h4"} size="md" className="text-gray-800 mt-[16px]">
+          Payment Successful
         </Text>
-        <div className="p-[1rem] border-solid rounded-sm  border-[#E9EAEC] border-[1px] flex flex-col gap-[1rem] mt-[16px]">
-          <div className="flex justify-between gap-[120px]">
-            <Text size="xs">TOTAL AMOUNT PAID</Text>
-            <Text size="xs" className="text-gray-800">
-              {amount}
-            </Text>
-          </div>
-          <div className="flex justify-between gap-7">
-            <Text size="xs">PAID FROM</Text>
-            <Text size="xs" className="text-gray-800">
-              ESEWA
-            </Text>
-          </div>
-          <div className="flex justify-between gap-7">
-            <Text size="xs" className="uppercase">
-              Order Id
-            </Text>
-            <Text size="xs" className="text-gray-800">
-              {orderIdE}
-            </Text>
-          </div>
-        </div>
+        <Text size="xs" className="text-gray-800 mt-[8px] text-center">
+          Your payment is complete.
+          <br /> Details of transaction are included below.
+        </Text>
         <div>
-          <Text size="xs" className="mt-[64px]">
-            Please contact the admin at{" "}
-            <a className="underline" href="mailto:admin@intucart.com">
-              admin@intucart.com
-            </a>{" "}
-            for help
+          <Text size="xs" className="text-gray-800 mt-[8px] text-center">
+            Reference Number <span className="text-[#527DD0]">#{refId}</span>
           </Text>
+          <div className="p-[1rem] border-solid rounded-sm  border-[#E9EAEC] border-[1px] flex flex-col gap-[1rem] mt-[16px]">
+            <div className="flex justify-between gap-[120px]">
+              <Text size="xs">TOTAL AMOUNT PAID</Text>
+              <Text size="xs" className="text-gray-800">
+                {amount}
+              </Text>
+            </div>
+            <div className="flex justify-between gap-7">
+              <Text size="xs">PAID FROM</Text>
+              <Text size="xs" className="text-gray-800">
+                ESEWA
+              </Text>
+            </div>
+            <div className="flex justify-between gap-7">
+              <Text size="xs" className="uppercase">
+                Order Id
+              </Text>
+              <Text size="xs" className="text-gray-800">
+                {orderIdE}
+              </Text>
+            </div>
+          </div>
+          <div>
+            <Text size="xs" className="mt-[64px]">
+              Please contact the admin at{" "}
+              <a className="underline" href="mailto:admin@intucart.com">
+                admin@intucart.com
+              </a>{" "}
+              for help
+            </Text>
+          </div>
         </div>
-      </div>
-      <Button className="mt-[120px]" onClick={onClickHome}>
-        Home
-      </Button>
-    </section>
+        <Button className="mt-[120px]" onClick={onClickHome}>
+          Home
+        </Button>
+      </section>
+    </>
   );
 };
 
