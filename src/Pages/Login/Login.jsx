@@ -12,6 +12,7 @@ import { setTokenToLocalStorage } from "../../Utils/StorageUtils/StorageUtils";
 import { useNavigate } from "react-router";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { notifyError, notifySuccess } from "../../components/Toast/Toast";
+import { Helmet } from "react-helmet";
 
 const Login = () => {
   const {
