@@ -5,6 +5,7 @@ import { SuccessTick } from "../../assets/SVG/SvgImages";
 import { useMutation } from "@tanstack/react-query";
 import { deleteAllProducts } from "../../Utils/apiSlice/CartApiSlice";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
+import { Helmet } from "react-helmet";
 
 const EsewaSuccess = () => {
   const location = useLocation();

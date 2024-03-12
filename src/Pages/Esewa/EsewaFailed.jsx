@@ -2,6 +2,7 @@ import React from "react";
 import { ErrorSvg } from "../../assets/SVG/SvgImages";
 import { useNavigate } from "react-router-dom";
 import { Button, Text } from "../../components/Components";
+import { Helmet } from "react-helmet";
 
 const EsewaFailed = () => {
   const navigate = useNavigate();
