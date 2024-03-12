@@ -17,9 +17,13 @@ import LoginPopup from "../Login/LoginPopup";
 import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { notifyError, notifySuccess } from "../../components/Toast/Toast";
 import { useForm } from "react-hook-form";
-import { queryClient } from "../../Utils/Query/Query";
 import Skeleton from "react-loading-skeleton";
 
+/**
+ * Component representing the products page.
+ *
+ * @returns {JSX.Element} - The JSX element representing the products page.
+ */
 const Products = () => {
   const {
     register,
@@ -49,6 +53,12 @@ const Products = () => {
     },
   });
 
+  /**
+   * Handles adding an item to the cart.
+   *
+   * @param {Object} product - The product to be added to the cart.
+   * @param {boolean} signal - A signal indicating if the user is logged in.
+   */
   const addToCart = (product, signal) => {
     setCartItem(product);
     if (isLoggedIn) {
@@ -61,10 +71,18 @@ const Products = () => {
     }
   };
 
+  /**
+   * Closes the login popup.
+   */
   const handleLoginPopupClose = () => {
     setLoginPopup(false);
   };
 
+  /**
+   * Handles the search input form submission.
+   *
+   * @param {Object} data - The form data containing the search input.
+   */
   const searchInput = (data) => {
     setSelectedData("");
     setSkipData(0);

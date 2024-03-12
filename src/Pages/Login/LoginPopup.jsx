@@ -8,6 +8,17 @@ import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { CrossSvg } from "../../assets/SVG/SvgImages";
 import { notifyError, notifySuccess } from "../../components/Toast/Toast";
 
+/**
+ * LoginPopup component for handling user login in a popup.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Function} props.setLoginPopup - Function to set the login popup state.
+ * @param {Function} props.handleLoginPopupClose - Function to close the login popup.
+ * @param {Function} props.addToCart - Function to add an item to the cart.
+ * @param {Object} props.cartItem - The item to be added to the cart.
+ * @returns {JSX.Element} - The JSX element representing the login popup.
+ */
 const LoginPopup = ({
   setLoginPopup,
   handleLoginPopupClose,
@@ -40,6 +51,11 @@ const LoginPopup = ({
     },
   });
 
+  /**
+   * Handles the submission of the login form.
+   *
+   * @param {Object} loginData - The user login data.
+   */
   const handleLoginSubmit = (loginData) => {
     LoginMutation.mutate(loginData);
   };

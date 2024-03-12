@@ -1,6 +1,13 @@
-import axios from "axios";
+/**
+ * Initiates the checkout process for the products in the cart using eSewa.
+ *
+ * @param {number} totalPrice - The total price of the products in the cart.
+ * @param {string} transId - The transaction ID associated with the checkout.
+ * @returns {Promise<void>} - A promise that resolves once the checkout is initiated.
+ */
 
 export const checkoutProductsCart = async (totalPrice, transId) => {
+  /** @type {EsewaFormData} */
   var params = {
     amt: totalPrice * 133,
     psc: 0,
@@ -15,6 +22,11 @@ export const checkoutProductsCart = async (totalPrice, transId) => {
   esewaCall(params);
 };
 
+/**
+ * Makes a POST request to eSewa with the provided form data to initiate the payment process.
+ *
+ * @param {EsewaFormData} esewaFormData - The form data required for eSewa payment.
+ */
 const esewaCall = (esewaFormData) => {
   var path = "https://uat.esewa.com.np/epay/main";
 

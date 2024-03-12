@@ -1,6 +1,11 @@
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 
+/**
+ * Component that represents a skeleton loading effect for a grid of items.
+ *
+ * @returns {JSX.Element} - The JSX element representing the item skeleton.
+ */
 const ItemSkeleton = () => {
   return (
     <div className="grid grid-cols-4 mx-auto justify-center items-center gap-[3.7rem] ds:grid-cols-3 ds:gap-[3rem] lp:grid-cols-2  lp:gap-x-[8.8rem] mb:grid-cols-1">

@@ -20,6 +20,11 @@ import { addItemToCart } from "../../Utils/apiSlice/CartApiSlice";
 import { notifySuccess } from "../../components/Toast/Toast";
 import { HomePageSkeleton } from "../../components/LoadingSkeleton/HomePageSkeleton";
 
+/**
+ * Component representing the home page of the IntuCart application.
+ *
+ * @returns {JSX.Element} - The JSX element representing the home page.
+ */
 const HomePage = () => {
   const { data: FeaturedProduct, isPending } = useQuery({
     queryKey: ["FeaturedProducts"],
@@ -40,6 +45,12 @@ const HomePage = () => {
   const [cartItem, setCartItem] = useState();
   const { isLoggedIn } = useShoppingContext();
 
+  /**
+   * Adds the specified product to the cart and handles login-related actions.
+   *
+   * @param {Object} product - The product to be added to the cart.
+   * @param {boolean} signal - Signal to show/hide the login popup.
+   */
   const addToCart = (product, signal) => {
     setCartItem(product);
     if (isLoggedIn) {
@@ -52,6 +63,9 @@ const HomePage = () => {
     }
   };
 
+  /**
+   * Handles the close event for the login popup.
+   */
   const handleLoginPopupClose = () => {
     setLoginPopup(false);
   };

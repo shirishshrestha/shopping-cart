@@ -4,8 +4,17 @@ import { useNavigate } from "react-router-dom";
 import { Button, Text } from "../../components/Components";
 import { Helmet } from "react-helmet";
 
+/**
+ * Component representing the page displayed when eSewa payment fails.
+ *
+ * @returns {JSX.Element} - The JSX element representing the failed payment page.
+ */
 const EsewaFailed = () => {
   const navigate = useNavigate();
+
+  /**
+   * Handles the click event for the "Home" button, navigating to the home page.
+   */
   const onClickHome = () => {
     navigate("/");
   };

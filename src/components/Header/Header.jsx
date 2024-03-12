@@ -19,6 +19,11 @@ const navigation = [
   { name: "Collection", to: "#" },
 ];
 
+/**
+ * Header component representing the navigation bar of the IntuCart application.
+ *
+ * @returns {JSX.Element} - The JSX element representing the header.
+ */
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -26,6 +31,9 @@ const Header = () => {
 
   const { isLoggedIn, setIsLoggedIn } = useShoppingContext();
 
+  /**
+   * Handles the logout process.
+   */
   const handleLogout = () => {
     setMobileMenuOpen(false);
     notifySuccess("Logged out successfully");

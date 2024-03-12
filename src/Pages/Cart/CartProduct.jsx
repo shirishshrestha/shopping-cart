@@ -4,6 +4,14 @@ import { useMutation } from "@tanstack/react-query";
 import { deleteCartItem } from "../../Utils/apiSlice/CartApiSlice";
 import { queryClient } from "../../Utils/Query/Query";
 
+/**
+ * CartProduct component representing a single product in the shopping cart.
+ *
+ * @component
+ * @param {Object} props - The component props.
+ * @param {Object} props.product - The product data for the cart item.
+ * @returns {JSX.Element} - The JSX element representing the cart product.
+ */
 const CartProduct = ({ product }) => {
   const DeleteCartItem = useMutation({
     mutationFn: (productId) => deleteCartItem(productId),
@@ -11,6 +19,12 @@ const CartProduct = ({ product }) => {
       queryClient.invalidateQueries("CartData");
     },
   });
+
+  /**
+   * Handles the deletion of a cart item.
+   *
+   * @param {number} productId - The ID of the product to be deleted.
+   */
   const handleCartItemDelete = (productId) => {
     DeleteCartItem.mutate(productId);
   };

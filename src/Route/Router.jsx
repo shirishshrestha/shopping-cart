@@ -8,6 +8,11 @@ import Cart from "../Pages/Cart/Cart";
 import EsewaSuccess from "../Pages/Esewa/EsewaSuccess";
 import EsewaFailed from "../Pages/Esewa/EsewaFailed";
 
+/**
+ * The main router configuration for the application.
+ *
+ * @type {RouteConfig[]}
+ */
 export const router = createBrowserRouter([
   {
     path: "/",

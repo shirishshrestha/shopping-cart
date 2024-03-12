@@ -7,6 +7,11 @@ import CartProduct from "./CartProduct";
 import { checkoutProductsCart } from "../../Utils/apiSlice/EsewaApiSlice";
 import { useState } from "react";
 
+/**
+ * Cart component represents the shopping cart page in the IntuCart application.
+ *
+ * @returns {JSX.Element} - The JSX element representing the shopping cart page.
+ */
 const Cart = () => {
   const [transId, setTransId] = useState();
 
@@ -15,6 +20,11 @@ const Cart = () => {
     queryFn: getCartData,
   });
 
+  /**
+   * Calculates the total price of the items in the shopping cart.
+   *
+   * @returns {number} - The total price of the items in the shopping cart.
+   */
   const calculateTotalPrice = () => {
     if (CartData && CartData.length > 0) {
       return CartData.reduce((total, product) => {

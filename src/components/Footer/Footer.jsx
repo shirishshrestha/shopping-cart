@@ -5,6 +5,11 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaFacebook } from "react-icons/fa6";
 import { useForm } from "react-hook-form";
 
+/**
+ * Footer component representing the footer section of the IntuCart application.
+ *
+ * @returns {JSX.Element} - The JSX element representing the footer.
+ */
 const Footer = () => {
   const {
     register,

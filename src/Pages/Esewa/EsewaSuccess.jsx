@@ -4,9 +4,13 @@ import { Button, Img, Text } from "../../components/Components";
 import { SuccessTick } from "../../assets/SVG/SvgImages";
 import { useMutation } from "@tanstack/react-query";
 import { deleteAllProducts } from "../../Utils/apiSlice/CartApiSlice";
-import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { Helmet } from "react-helmet";
 
+/**
+ * Component representing the page displayed upon successful eSewa payment.
+ *
+ * @returns {JSX.Element} - The JSX element representing the success page.
+ */
 const EsewaSuccess = () => {
   const location = useLocation();
   const [refId, setRefId] = useState();
@@ -15,6 +19,9 @@ const EsewaSuccess = () => {
 
   const navigate = useNavigate();
 
+  /**
+   * React Query hook for deleting all products in the cart.
+   */
   const DeleteAllProducts = useMutation({
     mutationFn: () => deleteAllProducts(),
     onSuccess: () => {
@@ -23,6 +30,9 @@ const EsewaSuccess = () => {
   });
 
   useEffect(() => {
+    /**
+     * Extracts and sets the order details from the URL parameters.
+     */
     const searchParams = new URLSearchParams(location.search);
     const orderId = searchParams.get("oid");
     const amount = searchParams.get("amt");
@@ -31,7 +41,11 @@ const EsewaSuccess = () => {
     setRefId(refId);
     setAmount(amount);
   }, [location.search]);
+  
 
+  /**
+   * Handles the click event for the "Home" button, deleting all products in the cart.
+   */
   const onClickHome = () => {
     DeleteAllProducts.mutate();
   };

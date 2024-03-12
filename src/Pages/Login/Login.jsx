@@ -14,6 +14,11 @@ import { useShoppingContext } from "../../Utils/Context/ShoppingContext";
 import { notifyError, notifySuccess } from "../../components/Toast/Toast";
 import { Helmet } from "react-helmet";
 
+/**
+ * Component representing the login page of the IntuCart application.
+ *
+ * @returns {JSX.Element} - The JSX element representing the login page.
+ */
 const Login = () => {
   const {
     register,
@@ -41,10 +46,18 @@ const Login = () => {
     },
   });
 
+  /**
+   * Handles the submission of the login form.
+   *
+   * @param {Object} loginData - The login form data.
+   */
   const handleLoginSubmit = (loginData) => {
     LoginMutation.mutate(loginData);
   };
 
+  /**
+   * Navigates to the home page.
+   */
   const navigateHome = () => {
     navigate("/");
   };
