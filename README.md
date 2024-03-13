@@ -5,7 +5,7 @@
 
 bash  
 git clone https://github.com/shirishshrestha/shopping-cart  
-cd IntuCart  
+
 
 ## Run the Project Locally:  
 To run the project locally, follow these steps:  
