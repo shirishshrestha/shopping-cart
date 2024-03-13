@@ -30,3 +30,10 @@ Use the following credentials for logging into the application:
   
 - **Username:** atuny0
 - **Password:** 9uQFF1Lh
+
+
+Use the following credentials for esewa:  
+
+- **Phone number:**  9806800001
+- **Password/MPIN:** Nepal@123 / 1122  
+- **Token:** 123456  
